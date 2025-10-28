@@ -1,7 +1,7 @@
-import { ResolvedCharacter, GroupedCharacters, Jinx } from "./types";
-import { darken } from "./colorAlgorithms";
-import "./CharacterSheet.css";
 import { type CSSProperties } from "preact";
+import { darken } from "./colorAlgorithms";
+import { ResolvedCharacter, GroupedCharacters, Jinx } from "./types";
+import "./CharacterSheet.css";
 
 interface CharacterSheetProps {
   title: string;
