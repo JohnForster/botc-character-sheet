@@ -17,8 +17,7 @@
   ],
   "scripts": {
     "build": "vite build && tsc --emitDeclarationOnly --outDir dist",
-    "dev": "vite build --watch",
-    "publish": "bun run build && bun publish"
+    "dev": "vite build --watch"
   },
   "peerDependencies": {
     "preact": "^10.19.3"
