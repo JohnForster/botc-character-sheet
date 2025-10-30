@@ -38,9 +38,8 @@
   text-wrap: wrap;
   z-index: 1;
   flex-shrink: 1;
-  width: 100mm;
   text-align: center;
-  padding: 20mm 0;
+  padding: 10mm;
 
   background-image: url(/images/parchment_texture.jpg);
   background-clip: text;
@@ -48,13 +47,23 @@
   color: transparent;
   background-size: 100mm;
   filter: drop-shadow(0.5mm 0.5mm black) drop-shadow(0mm 0mm 1mm black);
-  word-break: break-word;
+  /* word-break: break-word; */
   word-spacing: -10mm;
+  flex: 0 1 130mm;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .sheet-backing h1 .ampersand {
   font-size: 45mm;
-  line-height: 0;
+  line-height: 30mm;
   vertical-align: -5mm;
-  margin: 0 -5mm;
+}
+
+.title-container {
+  z-index: 1;
+  display: flex;
+  justify-content: center;
 }

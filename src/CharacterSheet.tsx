@@ -192,7 +192,7 @@ function CharacterSection({
   iconScale,
   compactAppearance = false,
 }: CharacterSectionProps) {
-  const justifyContent = characters.length > 6 ? "space-between" : "flex-start";
+  const justifyContent = characters.length > 8 ? "space-between" : "flex-start";
 
   return (
     <div className="character-section">

@@ -12,9 +12,7 @@ export const SheetBack = ({ title, color, includeMargins }: SheetBackProps) => {
     return parts.map((part, index) => (
       <>
         {part}
-        {index < parts.length - 1 && (
-          <span className="ampersand">&</span>
-        )}
+        {index < parts.length - 1 && <span className="ampersand">&</span>}
       </>
     ));
   };
@@ -27,7 +25,9 @@ export const SheetBack = ({ title, color, includeMargins }: SheetBackProps) => {
       }}
     >
       <div className="sheet-background">
-        <h1>{renderTitle()}</h1>
+        <div className="title-container">
+          <h1>{renderTitle()}</h1>
+        </div>
       </div>
       <div
         className="sheet-back-overlay"
