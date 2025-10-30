@@ -172,9 +172,17 @@
 }
 
 .character-list {
+  display: flex;
   margin-left: 8mm;
-  column-count: 2;
-  column-gap: 5mm;
+  /* column-count: 2;
+  column-gap: 5mm; */
+}
+
+.character-column {
+  flex: 1 1 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 .character-card {

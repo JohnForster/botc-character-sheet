@@ -192,22 +192,36 @@ function CharacterSection({
   iconScale,
   compactAppearance = false,
 }: CharacterSectionProps) {
+  const justifyContent = characters.length > 6 ? "space-between" : "flex-start";
+
   return (
     <div className="character-section">
       <h2 className="section-title">{title}</h2>
       <div className="character-list">
-        {characters.map((char) => (
-          <CharacterCard
-            key={char.id}
-            character={char}
-            color={charNameColor}
-            iconScale={iconScale}
-            compactAppearance={compactAppearance}
-          />
-        ))}
-        {characters.length % 2 === 1 && (
-          <div className="character-column-spacer"></div>
-        )}
+        <div className="character-column">
+          {characters.slice(0, Math.ceil(characters.length / 2)).map((char) => (
+            <CharacterCard
+              key={char.id}
+              character={char}
+              color={charNameColor}
+              iconScale={iconScale}
+              compactAppearance={compactAppearance}
+            />
+          ))}
+        </div>
+        <div className="character-column" style={{ justifyContent }}>
+          {characters
+            .slice(Math.ceil(characters.length / 2), characters.length)
+            .map((char) => (
+              <CharacterCard
+                key={char.id}
+                character={char}
+                color={charNameColor}
+                iconScale={iconScale}
+                compactAppearance={compactAppearance}
+              />
+            ))}
+        </div>
       </div>
     </div>
   );
