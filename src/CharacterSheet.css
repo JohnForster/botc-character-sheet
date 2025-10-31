@@ -174,8 +174,7 @@
 .character-list {
   display: flex;
   margin-left: 8mm;
-  /* column-count: 2;
-  column-gap: 5mm; */
+  gap: 5mm;
 }
 
 .character-column {
