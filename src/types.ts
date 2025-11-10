@@ -1,3 +1,5 @@
+import type { ScriptCharacter } from "botc-script-checker";
+
 // Character types needed by the component
 export type CharacterTeam =
   | "townsfolk"
@@ -7,16 +9,11 @@ export type CharacterTeam =
   | "traveller"
   | "fabled";
 
-export interface ResolvedCharacter {
-  id: string;
-  name: string;
-  ability: string;
-  team: CharacterTeam;
-  image?: string | string[];
+export type ResolvedCharacter = ScriptCharacter & {
   wiki_image?: string;
   edition?: string;
   isCustom?: boolean;
-}
+};
 
 export interface GroupedCharacters {
   townsfolk: ResolvedCharacter[];
@@ -32,3 +29,6 @@ export interface Jinx {
   jinx: string;
   oldJinx?: string;
 }
+
+export type NightMarker = "dawn" | "dusk" | "minioninfo" | "demoninfo";
+export type NightOrderEntry = ResolvedCharacter | NightMarker;
