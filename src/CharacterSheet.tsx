@@ -13,7 +13,7 @@ interface CharacterSheetProps {
   includeMargins?: boolean;
   solidTitle?: boolean;
   iconScale?: number;
-  compactAppearance?: boolean;
+  appearance?: "normal" | "compact" | "super-compact";
 }
 
 export function CharacterSheet({
@@ -26,7 +26,7 @@ export function CharacterSheet({
   includeMargins = false,
   solidTitle = false,
   iconScale = 1.6,
-  compactAppearance = false,
+  appearance = "normal",
 }: CharacterSheetProps) {
   const sections = [
     {
@@ -92,7 +92,7 @@ export function CharacterSheet({
                 sidebarColor={color}
                 charNameColor={section.color}
                 iconScale={iconScale}
-                compactAppearance={compactAppearance}
+                appearance={appearance}
               />
               {i < sections.length - 1 && (
                 <img src="/images/divider.png" className="section-divider" />
@@ -182,7 +182,7 @@ interface CharacterSectionProps {
   sidebarColor: string;
   charNameColor: string;
   iconScale: number;
-  compactAppearance?: boolean;
+  appearance?: "normal" | "compact" | "super-compact";
 }
 
 function CharacterSection({
@@ -190,7 +190,7 @@ function CharacterSection({
   characters,
   charNameColor,
   iconScale,
-  compactAppearance = false,
+  appearance = "normal",
 }: CharacterSectionProps) {
   const justifyContent = characters.length > 8 ? "space-between" : "flex-start";
 
@@ -205,7 +205,7 @@ function CharacterSection({
               character={char}
               color={charNameColor}
               iconScale={iconScale}
-              compactAppearance={compactAppearance}
+              appearance={appearance}
             />
           ))}
         </div>
@@ -218,7 +218,7 @@ function CharacterSection({
                 character={char}
                 color={charNameColor}
                 iconScale={iconScale}
-                compactAppearance={compactAppearance}
+                appearance={appearance}
               />
             ))}
         </div>
@@ -231,14 +231,14 @@ interface CharacterCardProps {
   character: ResolvedCharacter;
   color: string;
   iconScale: number;
-  compactAppearance?: boolean;
+  appearance?: "normal" | "compact" | "super-compact";
 }
 
 function CharacterCard({
   character,
   color,
   iconScale,
-  compactAppearance = false,
+  appearance = "normal",
 }: CharacterCardProps) {
   const getImageUrl = () => {
     // Prefer wiki_image for official characters
@@ -275,22 +275,25 @@ function CharacterCard({
 
   const imageUrl = getImageUrl();
 
+  const cardClass = appearance !== "normal" ? `character-card ${appearance}` : "character-card";
+  const iconClass = appearance === "super-compact" ? "character-icon super-compact" : "character-icon";
+  const iconPlaceholderClass = appearance === "super-compact" ? "character-icon-placeholder super-compact" : "character-icon-placeholder";
+  const nameClass = appearance === "super-compact" ? "character-name super-compact" : "character-name";
+  const abilityClass = appearance === "super-compact" ? "character-ability super-compact" : "character-ability";
+
   return (
-    <div
-      className="character-card"
-      style={{ marginBottom: compactAppearance ? "1mm" : undefined }}
-    >
+    <div className={cardClass}>
       <div className="character-icon-wrapper">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={character.name}
-            className="character-icon"
+            className={iconClass}
             style={{ scale: iconScale.toString() }}
           />
         ) : (
           <div
-            className="character-icon-placeholder"
+            className={iconPlaceholderClass}
             style={{ color, scale: iconScale.toString() }}
           >
             {character.name.charAt(0)}
@@ -298,10 +301,10 @@ function CharacterCard({
         )}
       </div>
       <div className="character-info">
-        <h3 className="character-name" style={{ color: color }}>
+        <h3 className={nameClass} style={{ color: color }}>
           {character.name}
         </h3>
-        <p className="character-ability">{renderAbility(character.ability)}</p>
+        <p className={abilityClass}>{renderAbility(character.ability)}</p>
       </div>
     </div>
   );

@@ -35,7 +35,7 @@ function App() {
         showSwirls={true}
         solidTitle={false}
         iconScale={1.6}
-        compactAppearance={false}
+        appearance="normal"
       />
       <SheetBack
         title="My Custom Script"
@@ -62,7 +62,7 @@ Main character sheet component with parchment background and styled sections.
 - `showSwirls` (boolean): Show decorative swirls (default: true)
 - `solidTitle` (boolean): Use solid title background (default: false)
 - `iconScale` (number): Scale character icons (default: 1.6)
-- `compactAppearance` (boolean): Use compact layout (default: false)
+- `appearance` ("normal" | "compact" | "super-compact"): Layout density (default: "normal")
 - `includeMargins` (boolean): Add margins for printing (default: false)
 
 ### SheetBack

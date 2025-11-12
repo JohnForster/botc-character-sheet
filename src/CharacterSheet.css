@@ -237,6 +237,28 @@
   display: inline-block;
 }
 
+.character-card.compact {
+  margin-bottom: 1mm;
+}
+
+.character-ability.super-compact {
+  font-size: 2.7mm;
+}
+
+.character-name.super-compact {
+  font-size: 3.2mm;
+}
+
+.character-icon.super-compact,
+.character-icon-placeholder.super-compact {
+  width: 12mm;
+  max-height: 12mm;
+}
+
+.character-card.super-compact {
+  margin-bottom: 0.5mm;
+}
+
 .sheet-footer {
   text-align: center;
   font-family: "Goudy Old Style", "Goudy Oldstyle", "Goudy", Georgia, serif;
