@@ -1,5 +1,6 @@
 import "./SheetBack.css";
 import { NightOrderEntry } from "./types";
+import { getImageSrc } from "./utils/nightOrder";
 import { formatWithMinorWords } from "./utils/minorWordFormatter";
 
 type SheetBackProps = {
@@ -48,20 +49,23 @@ export const SheetBack = ({
               <div className="night-order">
                 <span>First Night:</span>
                 <div className="night-icons">
-                  {firstNightOrder.map((char) => (
-                    <img src={getImageSrc(char)} class="night-order-icon"></img>
-                  ))}
+                  {firstNightOrder.map((entry) => {
+                    const src = getImageSrc(entry);
+                    return (
+                      src && <img src={src} class="night-order-icon"></img>
+                    );
+                  })}
                 </div>
               </div>
               <div className="night-order">
                 <span>Other Nights:</span>
                 <div className="night-icons">
-                  {otherNightOrder.map((entry) => (
-                    <img
-                      src={getImageSrc(entry)}
-                      class="night-order-icon"
-                    ></img>
-                  ))}
+                  {otherNightOrder.map((entry) => {
+                    const src = getImageSrc(entry);
+                    return (
+                      src && <img src={src} class="night-order-icon"></img>
+                    );
+                  })}
                 </div>
               </div>
             </div>
@@ -75,17 +79,3 @@ export const SheetBack = ({
     </div>
   );
 };
-
-function getImageSrc(entry: NightOrderEntry): string | undefined {
-  if (typeof entry === "string") {
-    return entry === "dawn"
-      ? "/images/dawn-icon.png"
-      : entry === "dusk"
-      ? "/images/dusk-icon.png"
-      : entry === "minioninfo"
-      ? "/images/minioninfo.png"
-      : "/images/demoninfo.png";
-  } else {
-    return entry.wiki_image;
-  }
-}

@@ -1,3 +1,5 @@
+import { CharacterTeam } from "botc-script-checker";
+
 export function parseRgb(hex: string): [number, number, number] {
   if (hex.startsWith("#")) {
     hex = hex.slice(1);
@@ -32,3 +34,13 @@ export function darken(color: string, darkenFactor: number) {
   const bDark = Math.round(b * darkenFactor);
   return rgbString(rDark, gDark, bDark);
 }
+
+export const teamColours: Record<CharacterTeam, string> = {
+  townsfolk: "#00469e",
+  outsider: "#00469e",
+  minion: "#580709",
+  demon: "#580709",
+  fabled: "#6b5f05ff",
+  traveller: "#390758ff",
+  // loric: '#1f5807',
+};

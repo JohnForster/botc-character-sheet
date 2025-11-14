@@ -1,5 +1,5 @@
 import { type CSSProperties } from "preact";
-import { darken } from "./colorAlgorithms";
+import { darken, teamColours } from "./colours";
 import "./CharacterSheet.css";
 import { GroupedCharacters, Jinx, ResolvedCharacter } from "./types";
 
@@ -33,25 +33,25 @@ export function CharacterSheet({
       key: "townsfolk",
       title: "Townsfolk",
       chars: characters.townsfolk,
-      color: "#00469e",
+      color: teamColours["townsfolk"],
     },
     {
       key: "outsider",
       title: "Outsiders",
       chars: characters.outsider,
-      color: "#00469e",
+      color: teamColours["outsider"],
     },
     {
       key: "minion",
       title: "Minions",
       chars: characters.minion,
-      color: "#580709",
+      color: teamColours["minion"],
     },
     {
       key: "demon",
       title: "Demons",
       chars: characters.demon,
-      color: "#580709",
+      color: teamColours["demon"],
     },
   ].filter((section) => section.chars.length > 0);
 
@@ -275,11 +275,24 @@ function CharacterCard({
 
   const imageUrl = getImageUrl();
 
-  const cardClass = appearance !== "normal" ? `character-card ${appearance}` : "character-card";
-  const iconClass = appearance === "super-compact" ? "character-icon super-compact" : "character-icon";
-  const iconPlaceholderClass = appearance === "super-compact" ? "character-icon-placeholder super-compact" : "character-icon-placeholder";
-  const nameClass = appearance === "super-compact" ? "character-name super-compact" : "character-name";
-  const abilityClass = appearance === "super-compact" ? "character-ability super-compact" : "character-ability";
+  const cardClass =
+    appearance !== "normal" ? `character-card ${appearance}` : "character-card";
+  const iconClass =
+    appearance === "super-compact"
+      ? "character-icon super-compact"
+      : "character-icon";
+  const iconPlaceholderClass =
+    appearance === "super-compact"
+      ? "character-icon-placeholder super-compact"
+      : "character-icon-placeholder";
+  const nameClass =
+    appearance === "super-compact"
+      ? "character-name super-compact"
+      : "character-name";
+  const abilityClass =
+    appearance === "super-compact"
+      ? "character-ability super-compact"
+      : "character-ability";
 
   return (
     <div className={cardClass}>
