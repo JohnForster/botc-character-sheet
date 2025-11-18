@@ -42,5 +42,5 @@ export const teamColours: Record<CharacterTeam, string> = {
   demon: "#580709",
   fabled: "#6b5f05ff",
   traveller: "#390758ff",
-  // loric: '#1f5807',
+  loric: "#1f5807",
 };

@@ -1,6 +1,6 @@
 {
   "name": "botc-character-sheet",
-  "version": "0.11.0-beta.3",
+  "version": "0.12.0",
   "type": "module",
   "main": "./dist/index.js",
   "module": "./dist/index.js",
@@ -31,6 +31,6 @@
     "vite": "^5.0.8"
   },
   "dependencies": {
-    "botc-script-checker": "^0.1.1"
+    "botc-script-checker": "0.2.4"
   }
 }

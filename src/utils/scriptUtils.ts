@@ -12,6 +12,7 @@ export function groupCharactersByTeam(
     demon: [],
     traveller: [],
     fabled: [],
+    loric: [],
   };
 
   for (const char of characters) {

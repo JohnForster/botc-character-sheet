@@ -125,12 +125,10 @@ export const NightSheetEntry = (props: NightSheetEntryProps) => {
 };
 
 const getReminderText = (entry: NightOrderEntry, night: "first" | "other") => {
-  console.log("entry:", entry);
   if (typeof entry === "object") {
     const reminderText =
       night === "first" ? entry.firstNightReminder : entry.otherNightReminder;
     const name = entry.name;
-    console.log("night, entry, reminderText:", night, entry, reminderText);
     return { reminderText, name };
   } else {
     const reminder = NON_CHARACTER_REMINDERS[entry];

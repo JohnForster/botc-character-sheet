@@ -302,6 +302,7 @@
   margin-left: 8mm;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 .jinxes-two-columns {
@@ -369,4 +370,18 @@
   margin: 0;
   color: #222;
   padding-top: 0.5mm;
+}
+
+.jinx-item.loric {
+  margin-bottom: 1mm;
+}
+
+.loric-name {
+  font-family: "Goudy Old Style";
+  font-size: 3mm;
+  padding-top: 0;
+}
+
+.loric-spacer {
+  min-width: 4mm;
 }

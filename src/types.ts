@@ -22,6 +22,7 @@ export interface GroupedCharacters {
   demon: ResolvedCharacter[];
   traveller: ResolvedCharacter[];
   fabled: ResolvedCharacter[];
+  loric: ResolvedCharacter[];
 }
 
 export interface Jinx {
