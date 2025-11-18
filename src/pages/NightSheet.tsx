@@ -1,7 +1,7 @@
-import { NightMarker, NightOrderEntry } from "./types";
-import { getImageSrc } from "./utils/nightOrder";
+import { NightMarker, NightOrderEntry } from "../types";
+import { getImageSrc } from "../utils/nightOrder";
 import "./NightSheet.css";
-import { darken, teamColours } from "./colours";
+import { darken, teamColours } from "../utils/colours";
 import { ComponentChildren } from "preact";
 
 export type NightSheetProps = {
@@ -33,7 +33,7 @@ export const NightSheet = (props: NightSheetProps) => {
         </div>
         <div className="night-sheet-order">
           {props.otherNightOrder.map((reminder) => (
-            <NightSheetEntry entry={reminder} night="first" />
+            <NightSheetEntry entry={reminder} night="other" />
           ))}
         </div>
       </InfoSheet>
@@ -125,6 +125,7 @@ export const NightSheetEntry = (props: NightSheetEntryProps) => {
 };
 
 const getReminderText = (entry: NightOrderEntry, night: "first" | "other") => {
+  console.log("entry:", entry);
   if (typeof entry === "object") {
     const reminderText =
       night === "first" ? entry.firstNightReminder : entry.otherNightReminder;

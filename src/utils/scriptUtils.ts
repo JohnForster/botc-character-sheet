@@ -1,0 +1,86 @@
+import { ScriptCharacter } from "botc-script-checker";
+import { ResolvedCharacter, GroupedCharacters, Jinx } from "../types";
+import jinxesData from "../data/jinxes.json";
+
+export function groupCharactersByTeam(
+  characters: ResolvedCharacter[]
+): GroupedCharacters {
+  const grouped: GroupedCharacters = {
+    townsfolk: [],
+    outsider: [],
+    minion: [],
+    demon: [],
+    traveller: [],
+    fabled: [],
+  };
+
+  for (const char of characters) {
+    grouped[char.team].push(char);
+  }
+
+  return grouped;
+}
+
+export function findJinxes(
+  characters: ResolvedCharacter[],
+  useOldJinxes = false
+): Jinx[] {
+  const characterIds = new Set(characters.map((c) => c.id.toLowerCase()));
+  const applicableJinxes: Jinx[] = [];
+
+  // Add global jinxes from jinxes.json
+  for (const jinx of jinxesData as Jinx[]) {
+    const [char1, char2] = jinx.characters;
+    if (characterIds.has(char1) && characterIds.has(char2)) {
+      // If useOldJinxes is true and oldJinx exists, use it instead
+      if (useOldJinxes && jinx.oldJinx) {
+        applicableJinxes.push({
+          characters: jinx.characters,
+          jinx: jinx.oldJinx,
+        });
+      } else {
+        applicableJinxes.push({
+          characters: jinx.characters,
+          jinx: jinx.jinx,
+        });
+      }
+    }
+  }
+
+  // Extract jinxes from custom characters in the script
+  for (const char of characters) {
+    const isObjectElement = typeof char === "object" && char !== null;
+    const hasCustomJinxes = "jinxes" in char;
+
+    if (!isObjectElement || !hasCustomJinxes) continue;
+
+    const customChar = char as ScriptCharacter;
+    const char1Id = customChar.id.toLowerCase();
+
+    // Only process if this character is in the script
+    if (characterIds.has(char1Id) && customChar.jinxes) {
+      for (const jinxPair of customChar.jinxes) {
+        const char2Id = jinxPair.id.toLowerCase();
+
+        // Only add if both characters are in the script
+        if (characterIds.has(char2Id)) {
+          // Check if this jinx already exists (to avoid duplicates)
+          const exists = applicableJinxes.some(
+            (j) =>
+              (j.characters[0] === char1Id && j.characters[1] === char2Id) ||
+              (j.characters[0] === char2Id && j.characters[1] === char1Id)
+          );
+
+          if (!exists) {
+            applicableJinxes.push({
+              characters: [char1Id, char2Id],
+              jinx: jinxPair.reason,
+            });
+          }
+        }
+      }
+    }
+  }
+
+  return applicableJinxes;
+}

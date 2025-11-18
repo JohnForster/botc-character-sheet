@@ -1,4 +1,4 @@
-import type { ScriptCharacter } from "botc-script-checker";
+import type { ScriptCharacter, ScriptMetadata } from "botc-script-checker";
 
 // Character types needed by the component
 export type CharacterTeam =
@@ -32,3 +32,36 @@ export interface Jinx {
 
 export type NightMarker = "dawn" | "dusk" | "minioninfo" | "demoninfo";
 export type NightOrderEntry = ResolvedCharacter | NightMarker;
+
+export interface NightOrders {
+  first: NightOrderEntry[];
+  other: NightOrderEntry[];
+}
+
+export interface ScriptOptions {
+  color: string;
+  showAuthor: boolean;
+  showJinxes: boolean;
+  useOldJinxes: boolean;
+  showSwirls: boolean;
+  includeMargins: boolean;
+  solidTitle: boolean;
+  appearance: "normal" | "compact" | "super-compact";
+  showBackingSheet: boolean;
+  showNightSheet: boolean;
+  iconScale: number;
+  formatMinorWords: boolean;
+  displayNightOrder: boolean;
+}
+
+export interface ParsedScript {
+  metadata: ScriptMetadata | null;
+  characters: ScriptCharacter[];
+}
+
+export type NetworkPayload = {
+  script: ParsedScript;
+  options: ScriptOptions;
+  nightOrders: NightOrders;
+  filename: string;
+};

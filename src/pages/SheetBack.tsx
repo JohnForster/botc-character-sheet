@@ -1,7 +1,7 @@
 import "./SheetBack.css";
-import { NightOrderEntry } from "./types";
-import { getImageSrc } from "./utils/nightOrder";
-import { formatWithMinorWords } from "./utils/minorWordFormatter";
+import { NightOrderEntry } from "../types";
+import { getImageSrc } from "../utils/nightOrder";
+import { formatWithMinorWords } from "../utils/minorWordFormatter";
 
 type SheetBackProps = {
   title: string;

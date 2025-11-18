@@ -78,9 +78,9 @@
 .night-sheet-entry > img {
   width: 6mm;
   height: 6mm;
-  scale: 1.6;
   flex-shrink: 0;
-  margin-right: 2mm;
+  scale: 2;
+  margin-right: 2.5mm;
 }
 
 .reminder-icon {

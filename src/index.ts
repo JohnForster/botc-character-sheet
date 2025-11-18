@@ -1,13 +1,18 @@
 // Main exports for the character-sheet package
-export { CharacterSheet } from "./CharacterSheet";
-export { SheetBack } from "./SheetBack";
-export { NightSheet } from "./NightSheet";
+export { CharacterSheet } from "./pages/CharacterSheet";
+export { SheetBack } from "./pages/SheetBack";
+export { NightSheet } from "./pages/NightSheet";
+export { FancyDoc } from "./FancyDoc";
 export type {
+  CharacterTeam,
   ResolvedCharacter,
   GroupedCharacters,
   Jinx,
-  CharacterTeam,
   NightMarker,
   NightOrderEntry,
+  NightOrders,
+  ScriptOptions,
+  ParsedScript,
+  NetworkPayload,
 } from "./types";
-export { darken, parseRgb, rgbString } from "./colours";
+export { darken, parseRgb, rgbString } from "./utils/colours";
