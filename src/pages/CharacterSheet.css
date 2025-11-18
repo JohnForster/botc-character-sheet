@@ -372,6 +372,10 @@
   padding-top: 0.5mm;
 }
 
+.jinx-text.loric-text {
+  padding-top: 0;
+}
+
 .jinx-item.loric {
   margin-bottom: 1mm;
 }
