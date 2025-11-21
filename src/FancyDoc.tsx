@@ -46,10 +46,10 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
             title={script.metadata?.name || "Custom Script"}
             color={options.color}
             includeMargins={options.includeMargins}
-            firstNightOrder={nightOrders.first}
-            otherNightOrder={nightOrders.other}
+            nightOrders={nightOrders}
             formatMinorWords={options.formatMinorWords}
             displayNightOrder={options.displayNightOrder}
+            displayPlayerCounts={options.displayPlayerCounts}
           />
           <div style="break-after:page;"></div>
         </>

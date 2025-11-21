@@ -1,7 +1,8 @@
 import "./SheetBack.css";
-import { NightOrderEntry } from "../types";
-import { getImageSrc } from "../utils/nightOrder";
+import { NightOrders } from "../types";
 import { formatWithMinorWords } from "../utils/minorWordFormatter";
+import { NightOrderPanel } from "../components/NightOrderPanel";
+import { PlayerCount } from "../components/PlayerCount";
 
 type SheetBackProps = {
   title: string;
@@ -9,8 +10,8 @@ type SheetBackProps = {
   includeMargins: boolean;
   formatMinorWords?: boolean;
   displayNightOrder?: boolean;
-  firstNightOrder?: NightOrderEntry[];
-  otherNightOrder?: NightOrderEntry[];
+  displayPlayerCounts?: boolean;
+  nightOrders?: NightOrders;
 };
 
 export const SheetBack = ({
@@ -19,8 +20,8 @@ export const SheetBack = ({
   includeMargins,
   formatMinorWords = false,
   displayNightOrder = false,
-  firstNightOrder = [],
-  otherNightOrder = [],
+  nightOrders = { first: [], other: [] },
+  displayPlayerCounts = true,
 }: SheetBackProps) => {
   const renderTitle = () => {
     const parts = title.split("&");
@@ -43,39 +44,18 @@ export const SheetBack = ({
         <div className="title-container">
           <h1>{renderTitle()}</h1>
         </div>
-        {displayNightOrder && (
-          <>
-            <div className="night-order-container">
-              <div className="night-order">
-                <span>First Night:</span>
-                <div className="night-icons">
-                  {firstNightOrder.map((entry) => {
-                    const src = getImageSrc(entry);
-                    return (
-                      src && <img src={src} class="night-order-icon"></img>
-                    );
-                  })}
-                </div>
-              </div>
-              <div className="night-order">
-                <span>Other Nights:</span>
-                <div className="night-icons">
-                  {otherNightOrder.map((entry) => {
-                    const src = getImageSrc(entry);
-                    return (
-                      src && <img src={src} class="night-order-icon"></img>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </>
-        )}
       </div>
+
       <div
         className="sheet-back-overlay"
         style={{ backgroundColor: color }}
       ></div>
+
+      <div className="back-info-container">
+        {displayPlayerCounts && <PlayerCount />}
+
+        {displayNightOrder && <NightOrderPanel nightOrders={nightOrders} />}
+      </div>
     </div>
   );
 };

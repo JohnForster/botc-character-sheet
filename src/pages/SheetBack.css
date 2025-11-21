@@ -62,51 +62,18 @@
   vertical-align: -5mm;
 }
 
-.night-order-container {
+.back-info-container {
   position: absolute;
-  background-image: url(/images/parchment_texture.jpg);
-  background-position: 0 -50%;
-  left: 0;
   bottom: 20mm;
-  font-family: Dumbledor;
-  z-index: 1;
-  background-size: 200mm;
-  padding: 4mm;
-  box-shadow: inset 0 0 5px #000;
-
   display: flex;
-  flex-direction: column;
-  gap: 5mm;
-  max-width: 185mm;
-}
-
-.night-order {
-  z-index: 1;
-  display: flex;
-  gap: 2mm;
-}
-
-.night-order span {
-  color: #222;
-  height: 6mm;
-  display: flex;
+  gap: 10mm;
   align-items: center;
-  justify-content: flex-end;
-  flex: 0 0 23mm;
-}
-
-.night-icons {
-  z-index: 1;
-  display: flex;
-  align-items: center;
-  gap: 2mm;
-  flex-wrap: wrap;
-}
-
-.night-order-icon {
-  width: 6mm;
-  scale: 2.1;
-  filter: drop-shadow(0px 0px 2px #2224);
+  bottom: 0;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 20mm;
 }
 
 .title-container {

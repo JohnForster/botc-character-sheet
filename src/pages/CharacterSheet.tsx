@@ -103,7 +103,7 @@ export function CharacterSheet({
               )}
             </>
           ))}
-          {jinxes.length > 0 && (
+          {(jinxes.length > 0 || fabledOrLoric.length > 0) && (
             <>
               <img src="/images/divider.png" className="section-divider" />
               <JinxesAndSpecial

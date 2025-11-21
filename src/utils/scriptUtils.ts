@@ -54,6 +54,7 @@ export function findJinxes(
     const hasCustomJinxes = "jinxes" in char;
 
     if (!isObjectElement || !hasCustomJinxes) continue;
+    console.log("char.jinxes:", char.jinxes);
 
     const customChar = char as ScriptCharacter;
     const char1Id = customChar.id.toLowerCase();
@@ -62,6 +63,12 @@ export function findJinxes(
     if (characterIds.has(char1Id) && customChar.jinxes) {
       for (const jinxPair of customChar.jinxes) {
         const char2Id = jinxPair.id.toLowerCase();
+        console.log(`${char.id} is jinxed with ${char2Id}`);
+
+        if (!characterIds.has(char2Id)) {
+          console.log("characterIds doesnt contain charId", char2Id);
+          console.log("characterIds:", characterIds);
+        }
 
         // Only add if both characters are in the script
         if (characterIds.has(char2Id)) {
@@ -71,6 +78,7 @@ export function findJinxes(
               (j.characters[0] === char1Id && j.characters[1] === char2Id) ||
               (j.characters[0] === char2Id && j.characters[1] === char1Id)
           );
+          console.log("Jinx already exists:", exists);
 
           if (!exists) {
             applicableJinxes.push({

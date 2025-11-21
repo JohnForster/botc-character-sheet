@@ -53,6 +53,7 @@ export interface ScriptOptions {
   iconScale: number;
   formatMinorWords: boolean;
   displayNightOrder: boolean;
+  displayPlayerCounts: boolean;
 }
 
 export interface ParsedScript {
