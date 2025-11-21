@@ -16,7 +16,11 @@ export function groupCharactersByTeam(
   };
 
   for (const char of characters) {
-    grouped[char.team].push(char);
+    try {
+      grouped[char.team].push(char);
+    } catch {
+      console.error("Unknown team for:", char);
+    }
   }
 
   return grouped;

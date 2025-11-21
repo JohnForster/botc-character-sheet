@@ -15,7 +15,7 @@ interface CharacterSheetProps {
   includeMargins?: boolean;
   solidTitle?: boolean;
   iconScale?: number;
-  appearance?: "normal" | "compact" | "super-compact";
+  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
   fabledOrLoric?: FabledOrLoric[];
 }
 
@@ -84,6 +84,7 @@ export function CharacterSheet({
           title={title}
           author={author}
           solidHeader={solidTitle}
+          appearance={appearance}
         />
 
         <div className="characters-grid">
@@ -137,12 +138,15 @@ function Header({
   title,
   author,
   solidHeader = false,
+  appearance = "normal",
 }: {
   showSwirls: boolean;
   title: string;
   author?: string;
   solidHeader?: boolean;
+  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }) {
+  const spanClass = appearance;
   return (
     <>
       <h1 className="sheet-header">
@@ -153,6 +157,7 @@ function Header({
           ></img>
         )}
         <span
+          className={spanClass}
           style={{
             mixBlendMode: solidHeader ? "normal" : "multiply",
           }}
@@ -186,7 +191,7 @@ interface CharacterSectionProps {
   sidebarColor: string;
   charNameColor: string;
   iconScale: number;
-  appearance?: "normal" | "compact" | "super-compact";
+  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }
 
 function CharacterSection({
@@ -235,7 +240,7 @@ interface CharacterCardProps {
   character: ResolvedCharacter;
   color: string;
   iconScale: number;
-  appearance?: "normal" | "compact" | "super-compact";
+  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }
 
 function CharacterCard({
@@ -281,22 +286,20 @@ function CharacterCard({
 
   const cardClass =
     appearance !== "normal" ? `character-card ${appearance}` : "character-card";
-  const iconClass =
-    appearance === "super-compact"
-      ? "character-icon super-compact"
-      : "character-icon";
-  const iconPlaceholderClass =
-    appearance === "super-compact"
-      ? "character-icon-placeholder super-compact"
-      : "character-icon-placeholder";
-  const nameClass =
-    appearance === "super-compact"
-      ? "character-name super-compact"
-      : "character-name";
-  const abilityClass =
-    appearance === "super-compact"
-      ? "character-ability super-compact"
-      : "character-ability";
+  const isCompactMode =
+    appearance === "super-compact" || appearance === "mega-compact";
+  const iconClass = isCompactMode
+    ? `character-icon ${appearance}`
+    : "character-icon";
+  const iconPlaceholderClass = isCompactMode
+    ? `character-icon-placeholder ${appearance}`
+    : "character-icon-placeholder";
+  const nameClass = isCompactMode
+    ? `character-name ${appearance}`
+    : "character-name";
+  const abilityClass = isCompactMode
+    ? `character-ability ${appearance}`
+    : "character-ability";
 
   return (
     <div className={cardClass}>

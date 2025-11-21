@@ -47,7 +47,7 @@ export interface ScriptOptions {
   showSwirls: boolean;
   includeMargins: boolean;
   solidTitle: boolean;
-  appearance: "normal" | "compact" | "super-compact";
+  appearance: "normal" | "compact" | "super-compact" | "mega-compact";
   showBackingSheet: boolean;
   showNightSheet: boolean;
   iconScale: number;

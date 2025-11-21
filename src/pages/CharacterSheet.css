@@ -249,6 +249,10 @@
   font-size: 3.2mm;
 }
 
+.sheet-header span.compact {
+  font-size: 13mm;
+}
+
 .character-icon.super-compact,
 .character-icon-placeholder.super-compact {
   width: 12mm;
@@ -257,6 +261,32 @@
 
 .character-card.super-compact {
   margin-bottom: 0.5mm;
+}
+
+.sheet-header span.super-compact {
+  font-size: 12mm;
+}
+
+.character-ability.mega-compact {
+  font-size: 2.4mm;
+}
+
+.character-name.mega-compact {
+  font-size: 2.8mm;
+}
+
+.sheet-header span.mega-compact {
+  font-size: 11mm;
+}
+
+.character-icon.mega-compact,
+.character-icon-placeholder.mega-compact {
+  width: 11mm;
+  max-height: 11mm;
+}
+
+.character-card.mega-compact {
+  margin-bottom: 0.3mm;
 }
 
 .sheet-footer {
