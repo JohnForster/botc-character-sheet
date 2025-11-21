@@ -61,9 +61,12 @@ export function CharacterSheet({
 
   const colorDark = darken(color, 0.4);
 
+  const appearanceClass = appearance !== "normal" ? `appearance-${appearance}` : "";
+  const sheetClassName = `character-sheet ${appearanceClass}`.trim();
+
   return (
     <div
-      className="character-sheet"
+      className={sheetClassName}
       id="character-sheet"
       style={
         {
@@ -84,7 +87,6 @@ export function CharacterSheet({
           title={title}
           author={author}
           solidHeader={solidTitle}
-          appearance={appearance}
         />
 
         <div className="characters-grid">
@@ -97,7 +99,6 @@ export function CharacterSheet({
                 sidebarColor={color}
                 charNameColor={section.color}
                 iconScale={iconScale}
-                appearance={appearance}
               />
               {i < sections.length - 1 && (
                 <img src="/images/divider.png" className="section-divider" />
@@ -138,15 +139,12 @@ function Header({
   title,
   author,
   solidHeader = false,
-  appearance = "normal",
 }: {
   showSwirls: boolean;
   title: string;
   author?: string;
   solidHeader?: boolean;
-  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }) {
-  const spanClass = appearance;
   return (
     <>
       <h1 className="sheet-header">
@@ -157,7 +155,6 @@ function Header({
           ></img>
         )}
         <span
-          className={spanClass}
           style={{
             mixBlendMode: solidHeader ? "normal" : "multiply",
           }}
@@ -191,7 +188,6 @@ interface CharacterSectionProps {
   sidebarColor: string;
   charNameColor: string;
   iconScale: number;
-  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }
 
 function CharacterSection({
@@ -199,7 +195,6 @@ function CharacterSection({
   characters,
   charNameColor,
   iconScale,
-  appearance = "normal",
 }: CharacterSectionProps) {
   const justifyContent = characters.length > 8 ? "space-between" : "flex-start";
 
@@ -214,7 +209,6 @@ function CharacterSection({
               character={char}
               color={charNameColor}
               iconScale={iconScale}
-              appearance={appearance}
             />
           ))}
         </div>
@@ -227,7 +221,6 @@ function CharacterSection({
                 character={char}
                 color={charNameColor}
                 iconScale={iconScale}
-                appearance={appearance}
               />
             ))}
         </div>
@@ -240,14 +233,12 @@ interface CharacterCardProps {
   character: ResolvedCharacter;
   color: string;
   iconScale: number;
-  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
 }
 
 function CharacterCard({
   character,
   color,
   iconScale,
-  appearance = "normal",
 }: CharacterCardProps) {
   const getImageUrl = () => {
     // Prefer wiki_image for official characters
@@ -284,36 +275,19 @@ function CharacterCard({
 
   const imageUrl = getImageUrl();
 
-  const cardClass =
-    appearance !== "normal" ? `character-card ${appearance}` : "character-card";
-  const isCompactMode =
-    appearance === "super-compact" || appearance === "mega-compact";
-  const iconClass = isCompactMode
-    ? `character-icon ${appearance}`
-    : "character-icon";
-  const iconPlaceholderClass = isCompactMode
-    ? `character-icon-placeholder ${appearance}`
-    : "character-icon-placeholder";
-  const nameClass = isCompactMode
-    ? `character-name ${appearance}`
-    : "character-name";
-  const abilityClass = isCompactMode
-    ? `character-ability ${appearance}`
-    : "character-ability";
-
   return (
-    <div className={cardClass}>
+    <div className="character-card">
       <div className="character-icon-wrapper">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={character.name}
-            className={iconClass}
+            className="character-icon"
             style={{ scale: iconScale.toString() }}
           />
         ) : (
           <div
-            className={iconPlaceholderClass}
+            className="character-icon-placeholder"
             style={{ color, scale: iconScale.toString() }}
           >
             {character.name.charAt(0)}
@@ -321,10 +295,10 @@ function CharacterCard({
         )}
       </div>
       <div className="character-info">
-        <h3 className={nameClass} style={{ color: color }}>
+        <h3 className="character-name" style={{ color: color }}>
           {character.name}
         </h3>
-        <p className={abilityClass}>{renderAbility(character.ability)}</p>
+        <p className="character-ability">{renderAbility(character.ability)}</p>
       </div>
     </div>
   );

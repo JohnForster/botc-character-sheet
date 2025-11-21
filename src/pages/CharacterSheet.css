@@ -237,55 +237,58 @@
   display: inline-block;
 }
 
-.character-card.compact {
+/* Compact appearance */
+.appearance-compact .character-card {
   margin-bottom: 1mm;
 }
 
-.character-ability.super-compact {
-  font-size: 2.7mm;
-}
-
-.character-name.super-compact {
-  font-size: 3.2mm;
-}
-
-.sheet-header span.compact {
+.appearance-compact .sheet-header span {
   font-size: 13mm;
 }
 
-.character-icon.super-compact,
-.character-icon-placeholder.super-compact {
+/* Super-compact appearance */
+.appearance-super-compact .character-ability {
+  font-size: 2.7mm;
+}
+
+.appearance-super-compact .character-name {
+  font-size: 3.2mm;
+}
+
+.appearance-super-compact .character-icon,
+.appearance-super-compact .character-icon-placeholder {
   width: 12mm;
   max-height: 12mm;
 }
 
-.character-card.super-compact {
+.appearance-super-compact .character-card {
   margin-bottom: 0.5mm;
 }
 
-.sheet-header span.super-compact {
+.appearance-super-compact .sheet-header span {
   font-size: 12mm;
 }
 
-.character-ability.mega-compact {
+/* Mega-compact appearance */
+.appearance-mega-compact .character-ability {
   font-size: 2.4mm;
 }
 
-.character-name.mega-compact {
+.appearance-mega-compact .character-name {
   font-size: 2.8mm;
 }
 
-.sheet-header span.mega-compact {
+.appearance-mega-compact .sheet-header span {
   font-size: 11mm;
 }
 
-.character-icon.mega-compact,
-.character-icon-placeholder.mega-compact {
+.appearance-mega-compact .character-icon,
+.appearance-mega-compact .character-icon-placeholder {
   width: 11mm;
   max-height: 11mm;
 }
 
-.character-card.mega-compact {
+.appearance-mega-compact .character-card {
   margin-bottom: 0.3mm;
 }
 
