@@ -40,7 +40,7 @@ export interface NightOrders {
 }
 
 export interface ScriptOptions {
-  color: string;
+  color: string | string[];
   showAuthor: boolean;
   showJinxes: boolean;
   useOldJinxes: boolean;

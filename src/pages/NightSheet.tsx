@@ -1,7 +1,12 @@
 import { NightMarker, NightOrderEntry } from "../types";
 import { getImageSrc } from "../utils/nightOrder";
 import "./NightSheet.css";
-import { darken, teamColours } from "../utils/colours";
+import {
+  teamColours,
+  normalizeColors,
+  createGradient,
+  createOverlayBackground,
+} from "../utils/colours";
 import { ComponentChildren } from "preact";
 
 export type NightSheetProps = {
@@ -9,7 +14,7 @@ export type NightSheetProps = {
   otherNightOrder: NightOrderEntry[];
   includeMargins: boolean;
   title: string;
-  color: string;
+  color: string | string[];
 };
 
 export const NightSheet = (props: NightSheetProps) => {
@@ -43,20 +48,22 @@ export const NightSheet = (props: NightSheetProps) => {
 
 export type InfoSheetProps = {
   includeMargins: boolean;
-  color: string;
+  color: string | string[];
   children: ComponentChildren;
 };
 
 const InfoSheet = (props: InfoSheetProps) => {
-  const colorDark = darken(props.color, 0.4);
+  const colors = normalizeColors(props.color);
+  const gradient = createGradient(colors, 20);
+  const overlayBackground = createOverlayBackground(props.color, 180);
+
   return (
     <>
       <div
         className="night-sheet"
         style={{
           transform: props.includeMargins ? "scale(0.952)" : undefined,
-          "--header-color-light": props.color,
-          "--header-color-dark": colorDark,
+          "--header-gradient": gradient,
         }}
       >
         <img
@@ -65,15 +72,15 @@ const InfoSheet = (props: InfoSheetProps) => {
         ></img>
         <div className="sheet-content">{props.children}</div>
         <div className="spacer"></div>
-        <div className="info-author-credit">
-          <p>© Steven Medway bloodontheclocktower.com</p>
-          <p>Script template by John Forster ravenswoodstudio.xyz</p>
-        </div>
         <div className="info-footer-container">
+          <div className="info-author-credit">
+            <p>© Steven Medway bloodontheclocktower.com</p>
+            <p>Script template by John Forster ravenswoodstudio.xyz</p>
+          </div>
           <div className="info-footer-background"></div>
           <div
             className="info-footer-overlay"
-            style={{ backgroundColor: props.color }}
+            style={{ background: overlayBackground }}
           ></div>
         </div>
       </div>

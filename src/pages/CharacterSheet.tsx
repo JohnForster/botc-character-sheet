@@ -1,5 +1,10 @@
 import { type CSSProperties } from "preact";
-import { darken, teamColours } from "../utils/colours";
+import {
+  teamColours,
+  normalizeColors,
+  createGradient,
+  createOverlayBackground,
+} from "../utils/colours";
 import "./CharacterSheet.css";
 import { GroupedCharacters, Jinx, ResolvedCharacter } from "../types";
 import { FabledOrLoric } from "../utils/fabledOrLoric";
@@ -9,7 +14,7 @@ interface CharacterSheetProps {
   title: string;
   author?: string;
   characters: GroupedCharacters;
-  color: string;
+  color: string | string[];
   jinxes: Jinx[];
   showSwirls?: boolean;
   includeMargins?: boolean;
@@ -59,7 +64,8 @@ export function CharacterSheet({
     },
   ].filter((section) => section.chars.length > 0);
 
-  const colorDark = darken(color, 0.4);
+  const colors = normalizeColors(color);
+  const gradient = createGradient(colors, 20);
 
   const appearanceClass =
     appearance !== "normal" ? `appearance-${appearance}` : "";
@@ -73,8 +79,7 @@ export function CharacterSheet({
       id="character-sheet"
       style={
         {
-          "--header-color-light": color,
-          "--header-color-dark": colorDark,
+          "--header-gradient": gradient,
           transform: includeMargins ? "scale(0.952)" : undefined,
         } as CSSProperties
       }
@@ -99,7 +104,6 @@ export function CharacterSheet({
                 key={section.key}
                 title={section.title.toUpperCase()}
                 characters={section.chars}
-                sidebarColor={color}
                 charNameColor={section.color}
                 iconScale={iconScale}
               />
@@ -176,11 +180,15 @@ function Header({
   );
 }
 
-function Sidebar({ color }: { color: string }) {
+function Sidebar({ color }: { color: string | string[] }) {
+  const overlayBackground = createOverlayBackground(color, 180);
   return (
     <div className="sidebar-container">
       <div className="sidebar-background"></div>
-      <div className="sidebar-overlay" style={{ backgroundColor: color }}></div>
+      <div
+        className="sidebar-overlay"
+        style={{ background: overlayBackground }}
+      ></div>
     </div>
   );
 }
@@ -188,7 +196,6 @@ function Sidebar({ color }: { color: string }) {
 interface CharacterSectionProps {
   title: string;
   characters: ResolvedCharacter[];
-  sidebarColor: string;
   charNameColor: string;
   iconScale: number;
 }

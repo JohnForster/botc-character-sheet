@@ -3,10 +3,11 @@ import { NightOrders } from "../types";
 import { formatWithMinorWords } from "../utils/minorWordFormatter";
 import { NightOrderPanel } from "../components/NightOrderPanel";
 import { PlayerCount } from "../components/PlayerCount";
+import { createOverlayBackground } from "../utils/colours";
 
 type SheetBackProps = {
   title: string;
-  color: string;
+  color: string | string[];
   includeMargins: boolean;
   formatMinorWords?: boolean;
   displayNightOrder?: boolean;
@@ -33,6 +34,8 @@ export const SheetBack = ({
     ));
   };
 
+  const overlayBackground = createOverlayBackground(color, 180);
+
   return (
     <div
       className="sheet-backing"
@@ -48,7 +51,7 @@ export const SheetBack = ({
 
       <div
         className="sheet-back-overlay"
-        style={{ backgroundColor: color }}
+        style={{ background: overlayBackground }}
       ></div>
 
       <div className="back-info-container">

@@ -93,11 +93,7 @@
   filter: drop-shadow(0.2mm 0.1mm 0 #222d) drop-shadow(0mm 0mm 0.1mm #2228);
   word-spacing: -3mm;
 
-  background: linear-gradient(
-    -20deg,
-    var(--header-color-light) 50%,
-    var(--header-color-dark)
-  );
+  background: var(--header-gradient);
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
