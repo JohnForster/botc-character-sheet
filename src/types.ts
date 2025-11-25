@@ -54,6 +54,7 @@ export interface ScriptOptions {
   formatMinorWords: boolean;
   displayNightOrder: boolean;
   displayPlayerCounts: boolean;
+  numberOfCharacterSheets: number;
 }
 
 export interface ParsedScript {

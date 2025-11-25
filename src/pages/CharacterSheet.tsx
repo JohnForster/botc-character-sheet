@@ -61,8 +61,11 @@ export function CharacterSheet({
 
   const colorDark = darken(color, 0.4);
 
-  const appearanceClass = appearance !== "normal" ? `appearance-${appearance}` : "";
-  const sheetClassName = `character-sheet ${appearanceClass}`.trim();
+  const appearanceClass =
+    appearance !== "normal" ? `appearance-${appearance}` : "";
+  const sheetClassName = ["character-sheet", appearanceClass]
+    .filter(Boolean)
+    .join(" ");
 
   return (
     <div
@@ -235,11 +238,7 @@ interface CharacterCardProps {
   iconScale: number;
 }
 
-function CharacterCard({
-  character,
-  color,
-  iconScale,
-}: CharacterCardProps) {
+function CharacterCard({ character, color, iconScale }: CharacterCardProps) {
   const getImageUrl = () => {
     // Prefer wiki_image for official characters
     if (character.wiki_image) {

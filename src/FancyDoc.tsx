@@ -4,6 +4,7 @@ import { SheetBack } from "./pages/SheetBack";
 import { NightOrders, ParsedScript, ScriptOptions } from "./types";
 import { getFabledOrLoric } from "./utils/fabledOrLoric";
 import { groupCharactersByTeam, findJinxes } from "./utils/scriptUtils";
+import "./FancyDoc.css";
 
 export type FancyDocProps = {
   script: ParsedScript;
@@ -12,13 +13,12 @@ export type FancyDocProps = {
 };
 
 export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
-  const pages = 1;
   return (
     <div className="sheet-wrapper">
-      {Array(pages)
+      {Array(options.numberOfCharacterSheets)
         .fill(true)
-        .map(() => (
-          <>
+        .map((_, i) => (
+          <div className={i === 0 ? "" : "print-only"}>
             <CharacterSheet
               title={script.metadata?.name || "Custom Script"}
               author={options.showAuthor ? script.metadata?.author : undefined}
@@ -37,23 +37,23 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
               appearance={options.appearance}
             />
             <div style="break-after:page;"></div>
-          </>
-        ))}
 
-      {options.showBackingSheet && (
-        <>
-          <SheetBack
-            title={script.metadata?.name || "Custom Script"}
-            color={options.color}
-            includeMargins={options.includeMargins}
-            nightOrders={nightOrders}
-            formatMinorWords={options.formatMinorWords}
-            displayNightOrder={options.displayNightOrder}
-            displayPlayerCounts={options.displayPlayerCounts}
-          />
-          <div style="break-after:page;"></div>
-        </>
-      )}
+            {options.showBackingSheet && (
+              <>
+                <SheetBack
+                  title={script.metadata?.name || "Custom Script"}
+                  color={options.color}
+                  includeMargins={options.includeMargins}
+                  nightOrders={nightOrders}
+                  formatMinorWords={options.formatMinorWords}
+                  displayNightOrder={options.displayNightOrder}
+                  displayPlayerCounts={options.displayPlayerCounts}
+                />
+                <div style="break-after:page;"></div>
+              </>
+            )}
+          </div>
+        ))}
 
       {options.showNightSheet && (
         <>
