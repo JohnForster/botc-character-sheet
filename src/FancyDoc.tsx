@@ -35,6 +35,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
               solidTitle={options.solidTitle}
               iconScale={options.iconScale}
               appearance={options.appearance}
+              inlineJinxIcons={options.inlineJinxIcons}
             />
             <div style="break-after:page;"></div>
 
