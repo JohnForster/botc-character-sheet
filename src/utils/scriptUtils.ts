@@ -97,3 +97,39 @@ export function findJinxes(
 
   return applicableJinxes;
 }
+
+export const getImageUrl = (character: ResolvedCharacter) => {
+  // Prefer wiki_image for official characters
+  if (character.wiki_image) {
+    return character.wiki_image;
+  }
+  // Fall back to custom image for custom characters
+  if (!character.image) {
+    return null;
+  }
+  if (typeof character.image === "string") {
+    return character.image;
+  }
+  // If it's an array, use the first image
+  return character.image[0];
+};
+
+export function getJinxedCharacters(
+  character: ResolvedCharacter,
+  jinxes: Jinx[],
+  allCharacters: ResolvedCharacter[]
+): ResolvedCharacter[] {
+  const jinxedCharacterIds: string[] = [];
+
+  jinxes.forEach((jinx) => {
+    if (jinx.characters[0] === character.id) {
+      jinxedCharacterIds.push(jinx.characters[1]);
+    } else if (jinx.characters[1] === character.id) {
+      jinxedCharacterIds.push(jinx.characters[0]);
+    }
+  });
+
+  return allCharacters.filter((char) =>
+    jinxedCharacterIds.includes(char.id)
+  );
+}

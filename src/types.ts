@@ -55,6 +55,7 @@ export interface ScriptOptions {
   displayNightOrder: boolean;
   displayPlayerCounts: boolean;
   numberOfCharacterSheets: number;
+  inlineJinxIcons: boolean;
 }
 
 export interface ParsedScript {

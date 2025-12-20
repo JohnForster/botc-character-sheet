@@ -9,6 +9,7 @@ import "./CharacterSheet.css";
 import { GroupedCharacters, Jinx, ResolvedCharacter } from "../types";
 import { FabledOrLoric } from "../utils/fabledOrLoric";
 import { JinxesAndSpecial } from "../components/JinxesAndSpecial";
+import { getImageUrl, getJinxedCharacters } from "../utils/scriptUtils";
 
 interface CharacterSheetProps {
   title: string;
@@ -22,6 +23,7 @@ interface CharacterSheetProps {
   iconScale?: number;
   appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
   fabledOrLoric?: FabledOrLoric[];
+  inlineJinxIcons?: boolean;
 }
 
 export function CharacterSheet({
@@ -36,6 +38,7 @@ export function CharacterSheet({
   iconScale = 1.6,
   appearance = "normal",
   fabledOrLoric = [],
+  inlineJinxIcons = false,
 }: CharacterSheetProps) {
   const sections = [
     {
@@ -106,6 +109,14 @@ export function CharacterSheet({
                 characters={section.chars}
                 charNameColor={section.color}
                 iconScale={iconScale}
+                jinxes={jinxes}
+                allCharacters={[
+                  ...characters.townsfolk,
+                  ...characters.outsider,
+                  ...characters.minion,
+                  ...characters.demon,
+                ]}
+                inlineJinxIcons={inlineJinxIcons}
               />
               {i < sections.length - 1 && (
                 <img src="/images/divider.png" className="section-divider" />
@@ -198,6 +209,9 @@ interface CharacterSectionProps {
   characters: ResolvedCharacter[];
   charNameColor: string;
   iconScale: number;
+  jinxes: Jinx[];
+  allCharacters: ResolvedCharacter[];
+  inlineJinxIcons: boolean;
 }
 
 function CharacterSection({
@@ -205,20 +219,30 @@ function CharacterSection({
   characters,
   charNameColor,
   iconScale,
+  jinxes,
+  allCharacters: allChars,
+  inlineJinxIcons,
 }: CharacterSectionProps) {
-  const justifyContent = characters.length > 8 ? "space-between" : "flex-start";
+  const justifyContent =
+    characters.length > 8
+      ? "space-between"
+      : characters.length % 2 === 0
+      ? "space-around"
+      : "flex-start";
 
   return (
     <div className="character-section">
       <h2 className="section-title">{title}</h2>
       <div className="character-list">
-        <div className="character-column">
+        <div className="character-column" style={{ justifyContent }}>
           {characters.slice(0, Math.ceil(characters.length / 2)).map((char) => (
             <CharacterCard
               key={char.id}
               character={char}
               color={charNameColor}
               iconScale={iconScale}
+              jinxedCharacters={getJinxedCharacters(char, jinxes, allChars)}
+              inlineJinxIcons={inlineJinxIcons}
             />
           ))}
         </div>
@@ -231,6 +255,8 @@ function CharacterSection({
                 character={char}
                 color={charNameColor}
                 iconScale={iconScale}
+                jinxedCharacters={getJinxedCharacters(char, jinxes, allChars)}
+                inlineJinxIcons={inlineJinxIcons}
               />
             ))}
         </div>
@@ -243,25 +269,17 @@ interface CharacterCardProps {
   character: ResolvedCharacter;
   color: string;
   iconScale: number;
+  jinxedCharacters: ResolvedCharacter[];
+  inlineJinxIcons: boolean;
 }
 
-function CharacterCard({ character, color, iconScale }: CharacterCardProps) {
-  const getImageUrl = () => {
-    // Prefer wiki_image for official characters
-    if (character.wiki_image) {
-      return character.wiki_image;
-    }
-    // Fall back to custom image for custom characters
-    if (!character.image) {
-      return null;
-    }
-    if (typeof character.image === "string") {
-      return character.image;
-    }
-    // If it's an array, use the first image
-    return character.image[0];
-  };
-
+function CharacterCard({
+  character,
+  color,
+  iconScale,
+  jinxedCharacters,
+  inlineJinxIcons,
+}: CharacterCardProps) {
   const renderAbility = (ability: string) => {
     // Match square brackets at the end of the ability
     const match = ability.match(/^(.*?)(\[.*?\])$/);
@@ -279,8 +297,7 @@ function CharacterCard({ character, color, iconScale }: CharacterCardProps) {
     return ability;
   };
 
-  const imageUrl = getImageUrl();
-
+  const imageUrl = getImageUrl(character);
   return (
     <div className="character-card">
       <div className="character-icon-wrapper">
@@ -303,6 +320,30 @@ function CharacterCard({ character, color, iconScale }: CharacterCardProps) {
       <div className="character-info">
         <h3 className="character-name" style={{ color: color }}>
           {character.name}
+          {inlineJinxIcons && jinxedCharacters.length > 0 && (
+            <span className="inline-jinx-icons">
+              {jinxedCharacters.map((jinxedChar) => {
+                const jinxImageUrl = getImageUrl(jinxedChar);
+                return jinxImageUrl ? (
+                  <img
+                    key={jinxedChar.id}
+                    src={jinxImageUrl}
+                    alt={jinxedChar.name}
+                    className="inline-jinx-icon"
+                    title={`Jinxed with ${jinxedChar.name}`}
+                  />
+                ) : (
+                  <span
+                    key={jinxedChar.id}
+                    className="inline-jinx-icon-placeholder"
+                    title={`Jinxed with ${jinxedChar.name}`}
+                  >
+                    {jinxedChar.name.charAt(0)}
+                  </span>
+                );
+              })}
+            </span>
+          )}
         </h3>
         <p className="character-ability">{renderAbility(character.ability)}</p>
       </div>

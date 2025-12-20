@@ -204,6 +204,7 @@
   width: 13mm;
   max-height: 13mm;
   object-fit: contain;
+  filter: drop-shadow(1px 1px 2px #0004);
 }
 
 .character-icon-placeholder {
@@ -221,6 +222,36 @@
   font-weight: 700;
   margin: 0 0 0.5mm 0;
   color: #1a202c;
+  display: flex;
+  align-items: center;
+  gap: 1mm;
+}
+
+.inline-jinx-icons {
+  display: inline-flex;
+  gap: 0.5mm;
+  align-items: center;
+  margin-left: 1mm;
+}
+
+.inline-jinx-icon,
+.inline-jinx-icon-placeholder {
+  width: 5mm;
+  height: 5mm;
+  object-fit: contain;
+  filter: drop-shadow(0.5px 0.5px 0.5px #0004);
+  scale: 1.7;
+}
+
+.inline-jinx-icon-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #eeeeee;
+  font-weight: bold;
+  font-size: 1.8mm;
+  border-radius: 50%;
+  background-color: #666;
 }
 
 .character-ability {
@@ -286,6 +317,13 @@
 
 .appearance-mega-compact .character-card {
   margin-bottom: 0.3mm;
+}
+
+.appearance-mega-compact .inline-jinx-icon,
+.appearance-mega-compact .inline-jinx-icon-placeholder {
+  width: 4mm;
+  height: 4mm;
+  font-size: 1.3mm;
 }
 
 .sheet-footer {
