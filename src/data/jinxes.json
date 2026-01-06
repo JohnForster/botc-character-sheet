@@ -41,6 +41,10 @@
     "oldJinx": "If the Princess nominated & executed a player on their 1st day, no one dies to the Al-Hadikhia ability tonight."
   },
   {
+    "characters": ["alhadikhia", "mastermind"],
+    "jinx": "If the Al-Hadikhia dies by execution, and the Mastermind is alive, the Al-Hadikhia chooses 3 good players tonight: if all 3 choose to live, evil wins. Otherwise, good wins."
+  },
+  {
     "characters": ["boffin", "cultleader"],
     "jinx": "If the Demon has the Cult Leader ability, they can’t turn good due to this ability."
   },
