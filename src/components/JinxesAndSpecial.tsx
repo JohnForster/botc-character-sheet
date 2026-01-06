@@ -17,22 +17,33 @@ export function JinxesAndSpecial({
     allCharacters.map((char) => [char.id.toLowerCase(), char])
   );
 
-  const useTwoColumns = jinxes.length > 4;
-  const midpoint = useTwoColumns ? Math.ceil(jinxes.length / 2) : jinxes.length;
+  const hasBothJinxesAndFabledLoric =
+    jinxes.length > 0 && fabledAndLoric.length > 0;
 
-  // If there are fabled/loric in play, we display them in the right hand column
-  // If not, we split the jinxes into columns if there are more than four
+  const hasJinxesOnly = jinxes.length > 0 && fabledAndLoric.length === 0;
+  const hasSpecialOnly = jinxes.length === 0 && fabledAndLoric.length > 0;
+  const all = [...jinxes, ...fabledAndLoric];
+
+  const useTwoColumns =
+    hasBothJinxesAndFabledLoric ||
+    jinxes.length > 4 ||
+    fabledAndLoric.length > 4;
+
+  const midpoint = useTwoColumns ? Math.ceil(all.length / 2) : all.length;
+
+  // If there are both jinxes and fabled/loric in play, we display jinxes on the left, fabled/loric on the right.
+  // If not, we split the jinxes or special characters into columns if there are more than four
   // If not, we use a single column
   let leftColumn;
   let rightColumn;
-  if (fabledAndLoric.length) {
+  if (hasBothJinxesAndFabledLoric) {
     leftColumn = jinxes.map((jinx, i) => (
       <JinxItem key={`lc-${i}`} jinx={jinx} charMap={characterMap} />
     ));
     rightColumn = fabledAndLoric.map((fl, i) => (
       <FabledLoricItem key={`rc-${i}`} item={fl} />
     ));
-  } else if (useTwoColumns) {
+  } else if (hasJinxesOnly && useTwoColumns) {
     leftColumn = jinxes
       .slice(0, midpoint)
       .map((jinx, i) => (
@@ -43,10 +54,23 @@ export function JinxesAndSpecial({
       .map((jinx, i) => (
         <JinxItem key={`rc-${i}`} jinx={jinx} charMap={characterMap} />
       ));
-  } else {
+  } else if (hasSpecialOnly && useTwoColumns) {
+    leftColumn = fabledAndLoric
+      .slice(0, midpoint)
+      .map((item, i) => <FabledLoricItem key={`lc-${i}`} item={item} />);
+    rightColumn = fabledAndLoric
+      .slice(midpoint)
+      .map((item, i) => <FabledLoricItem key={`rc-${i}`} item={item} />);
+  } else if (hasJinxesOnly) {
     leftColumn = jinxes.map((jinx, i) => (
       <JinxItem key={`lc-${i}`} jinx={jinx} charMap={characterMap} />
     ));
+  } else if (hasSpecialOnly) {
+    leftColumn = fabledAndLoric.map((item, i) => (
+      <FabledLoricItem key={`lc-${i}`} item={item} />
+    ));
+  } else {
+    return null;
   }
 
   return (
