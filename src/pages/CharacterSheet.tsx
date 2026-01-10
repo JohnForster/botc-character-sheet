@@ -217,6 +217,9 @@ interface CharacterSectionProps {
   inlineJinxIcons: boolean;
 }
 
+// Threshold to switch from evenly spaced to space-between layout
+const BALANCE_POINT = 8;
+
 function CharacterSection({
   title,
   characters,
@@ -227,18 +230,20 @@ function CharacterSection({
   inlineJinxIcons,
 }: CharacterSectionProps) {
   const justifyContent =
-    characters.length > 8
+    characters.length > BALANCE_POINT
       ? "space-between"
       : characters.length % 2 === 0
       ? "space-around"
       : "flex-start";
+
+  const midpoint = calculateMidpoint(characters);
 
   return (
     <div className="character-section">
       <h2 className="section-title">{title}</h2>
       <div className="character-list">
         <div className="character-column" style={{ justifyContent }}>
-          {characters.slice(0, Math.ceil(characters.length / 2)).map((char) => (
+          {characters.slice(0, midpoint).map((char) => (
             <CharacterCard
               key={char.id}
               character={char}
@@ -250,18 +255,16 @@ function CharacterSection({
           ))}
         </div>
         <div className="character-column" style={{ justifyContent }}>
-          {characters
-            .slice(Math.ceil(characters.length / 2), characters.length)
-            .map((char) => (
-              <CharacterCard
-                key={char.id}
-                character={char}
-                color={charNameColor}
-                iconScale={iconScale}
-                jinxedCharacters={getJinxedCharacters(char, jinxes, allChars)}
-                inlineJinxIcons={inlineJinxIcons}
-              />
-            ))}
+          {characters.slice(midpoint, characters.length).map((char) => (
+            <CharacterCard
+              key={char.id}
+              character={char}
+              color={charNameColor}
+              iconScale={iconScale}
+              jinxedCharacters={getJinxedCharacters(char, jinxes, allChars)}
+              inlineJinxIcons={inlineJinxIcons}
+            />
+          ))}
         </div>
       </div>
     </div>
@@ -352,4 +355,31 @@ function CharacterCard({
       </div>
     </div>
   );
+}
+
+function calculateMidpoint(characters: ResolvedCharacter[]): number {
+  const midpoint = Math.ceil(characters.length / 2);
+
+  if (characters.length % 2 === 0 || characters.length <= BALANCE_POINT) {
+    return midpoint;
+  }
+  const leftWeightedMidpoint = midpoint;
+  const rightWeightedMidpoint = midpoint - 1;
+
+  const largerFirstHalf = characters.slice(0, leftWeightedMidpoint);
+  const largerSecondHalf = characters.slice(rightWeightedMidpoint - 1);
+
+  const totalAbilityLengthFirstHalf = largerFirstHalf.reduce(
+    (sum, char) => sum + char.ability.length,
+    0
+  );
+  const totalAbilityLengthSecondHalf = largerSecondHalf.reduce(
+    (sum, char) => sum + char.ability.length,
+    0
+  );
+
+  // Return the midpoint that results in more balanced ability lengths
+  return totalAbilityLengthFirstHalf < totalAbilityLengthSecondHalf
+    ? leftWeightedMidpoint
+    : rightWeightedMidpoint;
 }
