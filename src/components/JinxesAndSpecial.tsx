@@ -5,12 +5,14 @@ interface JinxesSectionProps {
   jinxes: Jinx[];
   allCharacters: ResolvedCharacter[];
   fabledAndLoric: FabledOrLoric[];
+  bootleggerRules: string[];
 }
 
 export function JinxesAndSpecial({
   jinxes,
   allCharacters,
   fabledAndLoric,
+  bootleggerRules,
 }: JinxesSectionProps) {
   // Create a map for quick character lookup
   const characterMap = new Map(
@@ -41,7 +43,11 @@ export function JinxesAndSpecial({
       <JinxItem key={`lc-${i}`} jinx={jinx} charMap={characterMap} />
     ));
     rightColumn = fabledAndLoric.map((fl, i) => (
-      <FabledLoricItem key={`rc-${i}`} item={fl} />
+      <FabledLoricItem
+        key={`rc-${i}`}
+        item={fl}
+        bootleggerRules={bootleggerRules}
+      />
     ));
   } else if (hasJinxesOnly && useTwoColumns) {
     leftColumn = jinxes
@@ -57,17 +63,33 @@ export function JinxesAndSpecial({
   } else if (hasSpecialOnly && useTwoColumns) {
     leftColumn = fabledAndLoric
       .slice(0, midpoint)
-      .map((item, i) => <FabledLoricItem key={`lc-${i}`} item={item} />);
+      .map((item, i) => (
+        <FabledLoricItem
+          key={`lc-${i}`}
+          item={item}
+          bootleggerRules={bootleggerRules}
+        />
+      ));
     rightColumn = fabledAndLoric
       .slice(midpoint)
-      .map((item, i) => <FabledLoricItem key={`rc-${i}`} item={item} />);
+      .map((item, i) => (
+        <FabledLoricItem
+          key={`rc-${i}`}
+          item={item}
+          bootleggerRules={bootleggerRules}
+        />
+      ));
   } else if (hasJinxesOnly) {
     leftColumn = jinxes.map((jinx, i) => (
       <JinxItem key={`lc-${i}`} jinx={jinx} charMap={characterMap} />
     ));
   } else if (hasSpecialOnly) {
     leftColumn = fabledAndLoric.map((item, i) => (
-      <FabledLoricItem key={`lc-${i}`} item={item} />
+      <FabledLoricItem
+        key={`lc-${i}`}
+        item={item}
+        bootleggerRules={bootleggerRules}
+      />
     ));
   } else {
     return null;
@@ -137,7 +159,14 @@ const JinxItem = ({ charMap, jinx }: JinxItemProps) => {
   );
 };
 
-function FabledLoricItem({ item }: { item: FabledOrLoric }) {
+function FabledLoricItem({
+  item,
+  bootleggerRules,
+}: {
+  item: FabledOrLoric;
+  bootleggerRules: string[];
+}) {
+  const isBootlegger = item.name.toLowerCase() === "bootlegger";
   return (
     <div className="jinx-item loric">
       <div className="loric-spacer"></div>
@@ -149,6 +178,12 @@ function FabledLoricItem({ item }: { item: FabledOrLoric }) {
       <div className="loric-text-container">
         <p className="jinx-text loric-name">{item.name}</p>
         <p className="jinx-text loric-text">{item.note}</p>
+        {isBootlegger &&
+          bootleggerRules.map((rule, i) => (
+            <p key={`bootlegger-rule-${i}`} className="jinx-text loric-text">
+              {rule}
+            </p>
+          ))}
       </div>
     </div>
   );

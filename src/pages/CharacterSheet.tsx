@@ -24,6 +24,7 @@ interface CharacterSheetProps {
   appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
   fabledOrLoric?: FabledOrLoric[];
   inlineJinxIcons?: boolean;
+  bootleggerRules?: string[];
 }
 
 export function CharacterSheet({
@@ -39,6 +40,7 @@ export function CharacterSheet({
   appearance = "normal",
   fabledOrLoric = [],
   inlineJinxIcons = false,
+  bootleggerRules = [],
 }: CharacterSheetProps) {
   const sections = [
     {
@@ -135,6 +137,7 @@ export function CharacterSheet({
                   ...characters.minion,
                   ...characters.demon,
                 ]}
+                bootleggerRules={bootleggerRules}
               />
             </>
           )}

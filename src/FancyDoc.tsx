@@ -36,6 +36,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
               iconScale={options.iconScale}
               appearance={options.appearance}
               inlineJinxIcons={options.inlineJinxIcons}
+              bootleggerRules={script.metadata?.bootlegger}
             />
             <div style="break-after:page;"></div>
 
