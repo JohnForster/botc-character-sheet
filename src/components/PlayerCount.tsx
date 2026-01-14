@@ -14,10 +14,18 @@ const PLAYER_COUNTS = {
   "15+": [9, 2, 3, 1],
 };
 
-export const PlayerCount = () => {
+export type PlayerCountProps = {
+  background?: boolean;
+};
+
+export const PlayerCount = ({ background = true }: PlayerCountProps) => {
   return (
     <>
-      <div className="player-count-container">
+      <div
+        className={`player-count-container ${
+          background ? "with-background" : ""
+        }`}
+      >
         <div className="count-column titles">
           <div className="row-title">Players</div>
           <div className="row-title good-count">Townsfolk</div>

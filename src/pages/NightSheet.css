@@ -1,27 +1,16 @@
-.night-sheet {
-  width: 210mm;
-  min-height: 297mm;
-  max-height: 297mm;
-  display: flex;
-  flex-direction: column;
-  position: relative;
-  overflow: hidden;
-  color: #222;
-}
-
 .night-sheet-heading {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.night-sheet .night-title {
+.night-sheet-heading .night-title {
   font-family: Dumbledor;
   font-size: 7mm;
   margin: 0;
 }
 
-.night-sheet .script-title {
+.night-sheet-heading .script-title {
   font-family: "Unlovable", serif;
   font-weight: lighter;
 
@@ -39,11 +28,6 @@
   text-align: center;
   word-spacing: -4mm;
   filter: drop-shadow(0.2mm 0.1mm 0 #222d) drop-shadow(0mm 0mm 0.1mm #2228);
-}
-
-.night-sheet .sheet-content {
-  padding: 10mm;
-  gap: 5mm;
 }
 
 .night-sheet-order {
@@ -91,48 +75,4 @@
   opacity: 0.8;
   margin-right: 4px;
   margin-bottom: -1px;
-}
-
-.info-author-credit {
-  font-family: Goudy Old Style, Goudy Oldstyle, Goudy, Georgia, serif;
-  font-size: 3.2mm;
-  color: #222;
-  opacity: 0.6;
-  text-align: right;
-  padding-bottom: 3mm;
-  padding-right: 3mm;
-  position: absolute;
-  right: 0;
-  top: -50%;
-}
-
-.info-author-credit p {
-  font-size: 2.5mm;
-  margin: 0;
-}
-
-.info-footer-container {
-  position: relative;
-}
-
-.info-footer-background {
-  background-image: url(/images/sidebar-desaturated-small.jpg);
-  background-size: 105mm;
-  width: 100%;
-  height: 20mm;
-  /* flex-shrink: 0; */
-}
-
-.info-footer-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 20mm;
-  background-color: rgba(0, 0, 0, 0.2);
-  mix-blend-mode: multiply;
-}
-
-.spacer {
-  flex: 1 0 0px;
 }

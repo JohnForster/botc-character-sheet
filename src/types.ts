@@ -56,6 +56,7 @@ export interface ScriptOptions {
   displayPlayerCounts: boolean;
   numberOfCharacterSheets: number;
   inlineJinxIcons: boolean;
+  showInfoSheet: boolean;
 }
 
 export interface ParsedScript {
