@@ -31,7 +31,7 @@ export const InfoSheet = (props: InfoSheetProps) => {
           <h3 className="script-title">{props.title}</h3>
         </div>
         <div className="info-sheet-content">
-          {!!props.firstNightOrder?.length && (
+          {props.displayNightOrder && !!props.firstNightOrder?.length && (
             <>
               <h4 className="info-sheet-section-title">First Night</h4>
               <div class="info-sheet-section">
@@ -43,7 +43,7 @@ export const InfoSheet = (props: InfoSheetProps) => {
               </div>
             </>
           )}
-          {!!props.otherNightOrder?.length && (
+          {props.displayNightOrder && !!props.otherNightOrder?.length && (
             <>
               <h4 className="info-sheet-section-title">Other Nights</h4>
               <div class="info-sheet-section">

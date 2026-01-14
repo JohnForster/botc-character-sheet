@@ -54,7 +54,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
             />
             <div style="break-after:page;"></div>
 
-            {options.showBackingSheet && (
+            {options.overleaf === "backingSheet" && (
               <>
                 <SheetBack
                   title={script.metadata?.name || "Custom Script"}
@@ -68,24 +68,27 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
                 <div style="break-after:page;"></div>
               </>
             )}
+
+            {options.overleaf === "infoSheet" && (
+              <>
+                <InfoSheet
+                  firstNightOrder={nightOrders.first}
+                  otherNightOrder={nightOrders.other}
+                  includeMargins={options.includeMargins}
+                  title={script.metadata?.name || "Custom Script"}
+                  color={options.color}
+                  bootleggerRules={script.metadata?.bootlegger}
+                  jinxes={resolvedJinxes}
+                  fabledOrLoric={fabledAndLoric}
+                  travellers={groupedCharacters.traveller}
+                  showBaseCharacterCounts={options.displayPlayerCounts}
+                  displayNightOrder={options.displayNightOrder}
+                />
+                <div style="break-after:page;"></div>
+              </>
+            )}
           </div>
         ))}
-
-      {options.showInfoSheet && (
-        <InfoSheet
-          firstNightOrder={nightOrders.first}
-          otherNightOrder={nightOrders.other}
-          includeMargins={options.includeMargins}
-          title={script.metadata?.name || "Custom Script"}
-          color={options.color}
-          bootleggerRules={script.metadata?.bootlegger}
-          jinxes={resolvedJinxes}
-          fabledOrLoric={fabledAndLoric}
-          travellers={groupedCharacters.traveller}
-          showBaseCharacterCounts={options.displayPlayerCounts}
-          displayNightOrder={options.displayNightOrder}
-        />
-      )}
 
       {options.showNightSheet && (
         <>

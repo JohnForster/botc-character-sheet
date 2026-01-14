@@ -48,7 +48,7 @@ export interface ScriptOptions {
   includeMargins: boolean;
   solidTitle: boolean;
   appearance: "normal" | "compact" | "super-compact" | "mega-compact";
-  showBackingSheet: boolean;
+  overleaf: "backingSheet" | "infoSheet" | "none";
   showNightSheet: boolean;
   iconScale: number;
   formatMinorWords: boolean;
@@ -56,7 +56,6 @@ export interface ScriptOptions {
   displayPlayerCounts: boolean;
   numberOfCharacterSheets: number;
   inlineJinxIcons: boolean;
-  showInfoSheet: boolean;
 }
 
 export interface ParsedScript {
