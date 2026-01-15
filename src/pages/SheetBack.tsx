@@ -4,6 +4,7 @@ import { formatWithMinorWords } from "../utils/minorWordFormatter";
 import { NightOrderPanel } from "../components/NightOrderPanel";
 import { PlayerCount } from "../components/PlayerCount";
 import { createOverlayBackground } from "../utils/colours";
+import { PrintablePage } from "../components/PrintablePage";
 
 type SheetBackProps = {
   title: string;
@@ -13,6 +14,12 @@ type SheetBackProps = {
   displayNightOrder?: boolean;
   displayPlayerCounts?: boolean;
   nightOrders?: NightOrders;
+  dimensions: {
+    width: number;
+    height: number;
+    margin: number;
+    bleed: number;
+  };
 };
 
 export const SheetBack = ({
@@ -23,6 +30,7 @@ export const SheetBack = ({
   displayNightOrder = false,
   nightOrders = { first: [], other: [] },
   displayPlayerCounts = true,
+  dimensions,
 }: SheetBackProps) => {
   const renderTitle = () => {
     const parts = title.split("&");
@@ -37,28 +45,30 @@ export const SheetBack = ({
   const overlayBackground = createOverlayBackground(color, 180);
 
   return (
-    <div
-      className="sheet-backing"
-      style={{
-        transform: includeMargins ? "scale(0.952)" : undefined,
-      }}
-    >
-      <div className="sheet-background">
-        <div className="title-container">
-          <h1>{renderTitle()}</h1>
+    <PrintablePage dimensions={dimensions}>
+      <div
+        className="sheet-backing"
+        style={{
+          transform: includeMargins ? "scale(0.952)" : undefined,
+        }}
+      >
+        <div className="sheet-background">
+          <div className="title-container">
+            <h1>{renderTitle()}</h1>
+          </div>
+        </div>
+
+        <div
+          className="sheet-back-overlay"
+          style={{ background: overlayBackground }}
+        ></div>
+
+        <div className="back-info-container">
+          {displayPlayerCounts && <PlayerCount />}
+
+          {displayNightOrder && <NightOrderPanel nightOrders={nightOrders} />}
         </div>
       </div>
-
-      <div
-        className="sheet-back-overlay"
-        style={{ background: overlayBackground }}
-      ></div>
-
-      <div className="back-info-container">
-        {displayPlayerCounts && <PlayerCount />}
-
-        {displayNightOrder && <NightOrderPanel nightOrders={nightOrders} />}
-      </div>
-    </div>
+    </PrintablePage>
   );
 };

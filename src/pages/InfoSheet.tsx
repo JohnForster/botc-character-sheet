@@ -1,6 +1,6 @@
 import { BottomTrimSheet } from "../components/BottomTrimSheet";
 import { PlayerCount } from "../components/PlayerCount";
-import { NightOrderEntry, ResolvedCharacter } from "../types";
+import { NightOrderEntry, PageDimensions, ResolvedCharacter } from "../types";
 import { FabledOrLoric } from "../utils/fabledOrLoric";
 import { getImageSrc } from "../utils/nightOrder";
 import "./InfoSheet.css";
@@ -21,6 +21,7 @@ type InfoSheetProps = {
   bootleggerRules?: string[];
   travellers?: ResolvedCharacter[];
   displayNightOrder: boolean;
+  dimensions: PageDimensions;
 };
 
 export const InfoSheet = (props: InfoSheetProps) => {

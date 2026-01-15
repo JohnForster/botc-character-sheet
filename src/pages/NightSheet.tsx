@@ -1,4 +1,4 @@
-import { NightMarker, NightOrderEntry } from "../types";
+import { NightMarker, NightOrderEntry, PageDimensions } from "../types";
 import { getImageSrc } from "../utils/nightOrder";
 import "./NightSheet.css";
 import { teamColours } from "../utils/colours";
@@ -10,6 +10,7 @@ export type NightSheetProps = {
   includeMargins: boolean;
   title: string;
   color: string | string[];
+  dimensions: PageDimensions;
 };
 
 export const NightSheet = (props: NightSheetProps) => {

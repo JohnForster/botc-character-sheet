@@ -5,10 +5,13 @@ import {
   createOverlayBackground,
 } from "../utils/colours";
 import "./BottomTrimSheet.css";
+import { PrintablePage } from "./PrintablePage";
+import { PageDimensions } from "../types";
 
 export type BottomTrimSheetProps = {
   includeMargins: boolean;
   color: string | string[];
+  dimensions: PageDimensions;
   children: ComponentChildren;
 };
 
@@ -18,7 +21,7 @@ export const BottomTrimSheet = (props: BottomTrimSheetProps) => {
   const overlayBackground = createOverlayBackground(props.color, 180);
 
   return (
-    <>
+    <PrintablePage dimensions={props.dimensions}>
       <div
         className="bottom-trim-sheet"
         style={{
@@ -44,6 +47,6 @@ export const BottomTrimSheet = (props: BottomTrimSheetProps) => {
           ></div>
         </div>
       </div>
-    </>
+    </PrintablePage>
   );
 };

@@ -1,14 +1,12 @@
 .sheet-backing {
   position: relative;
-  width: 210mm;
-  min-height: 297mm; /* A4 height */
-  max-height: 297mm; /* A4 height */
+  flex: 1;
 }
 
 .sheet-background {
-  width: 210mm;
-  min-height: 297mm; /* A4 height */
-  max-height: 297mm; /* A4 height */
+  --height: calc(var(--page-height) - 2 * var(--print-margin));
+  min-height: var(--height);
+  max-height: var(--height);
   background-image: url(/images/sidebar-desaturated-small.jpg);
   background-repeat: repeat;
   background-size: 105mm;

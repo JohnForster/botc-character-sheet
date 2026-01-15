@@ -65,6 +65,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
                   formatMinorWords={options.formatMinorWords}
                   displayNightOrder={options.displayNightOrder}
                   displayPlayerCounts={options.displayPlayerCounts}
+                  dimensions={options.dimensions}
                 />
                 <div style="break-after:page;"></div>
               </>
@@ -84,6 +85,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
                   travellers={groupedCharacters.traveller}
                   showBaseCharacterCounts={options.displayPlayerCounts}
                   displayNightOrder={options.displayNightOrder}
+                  dimensions={options.dimensions}
                 />
                 <div style="break-after:page;"></div>
               </>
@@ -99,6 +101,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
             includeMargins={options.includeMargins}
             title={script.metadata?.name || "Custom Script"}
             color={options.color}
+            dimensions={options.dimensions}
           />
           <div style="break-after:page;"></div>
         </>

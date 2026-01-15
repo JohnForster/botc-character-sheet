@@ -1,7 +1,7 @@
 .bottom-trim-sheet {
-  width: 210mm;
-  min-height: 297mm;
-  max-height: 297mm;
+  --height: calc(var(--page-height) - 2 * var(--print-margin));
+  min-height: var(--height);
+  max-height: var(--height);
   display: flex;
   flex-direction: column;
   position: relative;
