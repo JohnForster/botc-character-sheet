@@ -56,6 +56,7 @@ export interface ScriptOptions {
   displayPlayerCounts: boolean;
   numberOfCharacterSheets: number;
   inlineJinxIcons: boolean;
+  dimensions: PageDimensions;
 }
 
 export interface ParsedScript {
@@ -68,4 +69,11 @@ export type NetworkPayload = {
   options: ScriptOptions;
   nightOrders: NightOrders;
   filename: string;
+};
+
+export type PageDimensions = {
+  width: number;
+  height: number;
+  margin: number;
+  bleed: number;
 };

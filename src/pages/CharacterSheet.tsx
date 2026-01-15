@@ -6,10 +6,11 @@ import {
   createOverlayBackground,
 } from "../utils/colours";
 import "./CharacterSheet.css";
-import { GroupedCharacters, Jinx } from "../types";
+import { GroupedCharacters, Jinx, PageDimensions } from "../types";
 import { FabledOrLoric } from "../utils/fabledOrLoric";
 import { JinxesAndSpecial } from "../components/JinxesAndSpecial";
 import { CharacterSection } from "./CharacterSection";
+import { PrintablePage } from "../components/PrintablePage";
 
 interface CharacterSheetProps {
   title: string;
@@ -25,12 +26,21 @@ interface CharacterSheetProps {
   fabledOrLoric?: FabledOrLoric[];
   inlineJinxIcons?: boolean;
   bootleggerRules?: string[];
+  dimensions: PageDimensions;
 }
+
+const defaultDimensions: PageDimensions = {
+  width: 210,
+  height: 297,
+  margin: 0,
+  bleed: 0,
+};
 
 export function CharacterSheet({
   title,
   author,
   characters,
+  dimensions = defaultDimensions,
   color = "#4a5568",
   jinxes = [],
   showSwirls = true,
@@ -79,79 +89,81 @@ export function CharacterSheet({
     .join(" ");
 
   return (
-    <div
-      className={sheetClassName}
-      id="character-sheet"
-      style={
-        {
-          "--header-gradient": gradient,
-          transform: includeMargins ? "scale(0.952)" : undefined,
-        } as CSSProperties
-      }
-    >
-      <img
-        className="character-sheet-background"
-        src="/images/parchment_texture_a4_lightened.jpg"
-      ></img>
-      <Sidebar color={color} />
-      <div className="sheet-content">
-        <Header
-          showSwirls={showSwirls}
-          title={title}
-          author={author}
-          solidHeader={solidTitle}
-        />
+    <PrintablePage dimensions={dimensions}>
+      <div
+        className={sheetClassName}
+        id="character-sheet"
+        style={
+          {
+            "--header-gradient": gradient,
+            transform: includeMargins ? "scale(0.952)" : undefined,
+          } as CSSProperties
+        }
+      >
+        <img
+          className="character-sheet-background"
+          src="/images/parchment_texture_a4_lightened.jpg"
+        ></img>
+        <Sidebar color={color} />
+        <div className="sheet-content">
+          <Header
+            showSwirls={showSwirls}
+            title={title}
+            author={author}
+            solidHeader={solidTitle}
+          />
 
-        <div className="characters-grid">
-          {sections.map((section, i) => (
-            <>
-              <CharacterSection
-                key={section.key}
-                title={section.title.toUpperCase()}
-                characters={section.chars}
-                charNameColor={section.color}
-                iconScale={iconScale}
-                jinxes={jinxes}
-                allCharacters={[
-                  ...characters.townsfolk,
-                  ...characters.outsider,
-                  ...characters.minion,
-                  ...characters.demon,
-                ]}
-                inlineJinxIcons={inlineJinxIcons}
-              />
-              {i < sections.length - 1 && (
+          <div className="characters-grid">
+            {sections.map((section, i) => (
+              <>
+                <CharacterSection
+                  key={section.key}
+                  title={section.title.toUpperCase()}
+                  characters={section.chars}
+                  charNameColor={section.color}
+                  iconScale={iconScale}
+                  jinxes={jinxes}
+                  allCharacters={[
+                    ...characters.townsfolk,
+                    ...characters.outsider,
+                    ...characters.minion,
+                    ...characters.demon,
+                  ]}
+                  inlineJinxIcons={inlineJinxIcons}
+                />
+                {i < sections.length - 1 && (
+                  <img src="/images/divider.png" className="section-divider" />
+                )}
+              </>
+            ))}
+            {(jinxes.length > 0 || fabledOrLoric.length > 0) && (
+              <>
                 <img src="/images/divider.png" className="section-divider" />
-              )}
-            </>
-          ))}
-          {(jinxes.length > 0 || fabledOrLoric.length > 0) && (
-            <>
-              <img src="/images/divider.png" className="section-divider" />
-              <JinxesAndSpecial
-                fabledAndLoric={fabledOrLoric}
-                jinxes={jinxes}
-                allCharacters={[
-                  ...characters.townsfolk,
-                  ...characters.outsider,
-                  ...characters.minion,
-                  ...characters.demon,
-                ]}
-                bootleggerRules={bootleggerRules}
-              />
-            </>
-          )}
-        </div>
+                <JinxesAndSpecial
+                  fabledAndLoric={fabledOrLoric}
+                  jinxes={jinxes}
+                  allCharacters={[
+                    ...characters.townsfolk,
+                    ...characters.outsider,
+                    ...characters.minion,
+                    ...characters.demon,
+                  ]}
+                  bootleggerRules={bootleggerRules}
+                />
+              </>
+            )}
+          </div>
 
-        <div className="sheet-footer">
-          <span className="asterisk">*</span>Not the first night
+          <div className="sheet-footer">
+            <span className="asterisk">*</span>Not the first night
+          </div>
         </div>
-      </div>
-      <div className="author-credit">
-        <p>© Steven Medway bloodontheclocktower.com</p>
-        <p>Script template by John Forster ravenswoodstudio.xyz</p>
-      </div>
-    </div>
+        <div className="author-credit">
+          <p>© Steven Medway bloodontheclocktower.com</p>
+          <p>Script template by John Forster ravenswoodstudio.xyz</p>
+        </div>
+      </div>{" "}
+    </PrintablePage>
   );
 }
 
