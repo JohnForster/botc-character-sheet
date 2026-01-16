@@ -7,10 +7,18 @@
   display: flex;
   flex-direction: column;
   position: relative;
+  background: white;
+  margin-bottom: 5px;
 }
 
 .print-guides-overlay {
   position: absolute;
   height: var(--print-guide-size);
   width: var(--print-guide-size);
+}
+
+@media print {
+  .printable-page {
+    margin: 0;
+  }
 }
