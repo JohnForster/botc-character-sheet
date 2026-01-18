@@ -14,5 +14,6 @@ export type {
   ScriptOptions,
   ParsedScript,
   NetworkPayload,
+  PageDimensions,
 } from "./types";
 export { darken, parseRgb, rgbString } from "./utils/colours";
