@@ -1,6 +1,7 @@
 .character-sheet {
   position: relative;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
   color: #2d3748;
   display: flex;
   overflow: hidden;
@@ -89,7 +90,7 @@
 .sheet-header span {
   font-weight: lighter;
   letter-spacing: 0mm;
-  filter: drop-shadow(0.2mm 0.1mm 0 #222d) drop-shadow(0mm 0mm 0.1mm #2228);
+  filter: drop-shadow(2px 0px 0px #cb8b);
   word-spacing: -3mm;
 
   background: var(--header-gradient);
@@ -254,8 +255,8 @@
 }
 
 .character-ability {
-  font-family: "Trade Gothic", "Trade Gothic Next", "Helvetica Neue", Arial,
-    sans-serif;
+  font-family:
+    "Trade Gothic", "Trade Gothic Next", "Helvetica Neue", Arial, sans-serif;
   font-size: 3.1mm;
   line-height: 1.2;
   margin: 0;
@@ -430,8 +431,8 @@
 }
 
 .jinx-text {
-  font-family: "Trade Gothic", "Trade Gothic Next", "Helvetica Neue", Arial,
-    sans-serif;
+  font-family:
+    "Trade Gothic", "Trade Gothic Next", "Helvetica Neue", Arial, sans-serif;
   font-size: 2.6mm;
   line-height: 1.2;
   margin: 0;
