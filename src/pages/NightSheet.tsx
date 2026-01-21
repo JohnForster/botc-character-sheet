@@ -6,8 +6,8 @@ import { BottomTrimSheet } from "../components/BottomTrimSheet";
 
 export type NightSheetProps = {
   title: string;
-  firstNightOrder: NightOrderEntry[];
-  otherNightOrder: NightOrderEntry[];
+  firstNightOrder?: NightOrderEntry[];
+  otherNightOrder?: NightOrderEntry[];
   options: ScriptOptions;
 };
 
@@ -19,28 +19,32 @@ export const NightSheet = ({
 }: NightSheetProps) => {
   return (
     <>
-      <BottomTrimSheet options={options}>
-        <div className="night-sheet-heading">
-          <h3 className="night-title">First Night</h3>
-          <h3 className="script-title">{title}</h3>
-        </div>
-        <div className="night-sheet-order">
-          {firstNightOrder.map((reminder) => (
-            <NightSheetEntry entry={reminder} night="first" />
-          ))}
-        </div>
-      </BottomTrimSheet>
-      <BottomTrimSheet options={options}>
-        <div className="night-sheet-heading">
-          <h3 className="night-title">Other Nights</h3>
-          <h3 className="script-title">{title}</h3>
-        </div>
-        <div className="night-sheet-order">
-          {otherNightOrder.map((reminder) => (
-            <NightSheetEntry entry={reminder} night="other" />
-          ))}
-        </div>
-      </BottomTrimSheet>
+      {firstNightOrder && (
+        <BottomTrimSheet options={options}>
+          <div className="night-sheet-heading">
+            <h3 className="night-title">First Night</h3>
+            <h3 className="script-title">{title}</h3>
+          </div>
+          <div className="night-sheet-order">
+            {firstNightOrder.map((reminder) => (
+              <NightSheetEntry entry={reminder} night="first" />
+            ))}
+          </div>
+        </BottomTrimSheet>
+      )}
+      {otherNightOrder && (
+        <BottomTrimSheet options={options}>
+          <div className="night-sheet-heading">
+            <h3 className="night-title">Other Nights</h3>
+            <h3 className="script-title">{title}</h3>
+          </div>
+          <div className="night-sheet-order">
+            {otherNightOrder.map((reminder) => (
+              <NightSheetEntry entry={reminder} night="other" />
+            ))}
+          </div>
+        </BottomTrimSheet>
+      )}
     </>
   );
 };
@@ -97,7 +101,7 @@ const getReminderText = (entry: NightOrderEntry, night: "first" | "other") => {
   } else {
     const reminder = NON_CHARACTER_REMINDERS[entry];
     const reminderText =
-      night === "first" ? reminder.first : reminder.other ?? "";
+      night === "first" ? reminder.first : (reminder.other ?? "");
     const name = reminder.name;
     return { reminderText, name };
   }

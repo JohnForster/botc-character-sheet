@@ -41,7 +41,10 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
       {Array.from({ length: numberOfSheets }).map(
         (_, i) =>
           !(i % 2) && (
-            <div key={i} className={i === 0 ? "" : "print-only"}>
+            <div
+              key={i}
+              className={i + 2 >= numberOfSheets ? "" : "print-only"}
+            >
               <div className="teensy-sheet-pair">
                 <CharacterSheet
                   title={script.metadata?.name || "Custom Script"}
@@ -54,17 +57,29 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                   bootleggerRules={script.metadata?.bootlegger}
                   options={options}
                 />
-                <CharacterSheet
-                  title={script.metadata?.name || "Custom Script"}
-                  author={
-                    options.showAuthor ? script.metadata?.author : undefined
-                  }
-                  characters={groupedCharacters}
-                  jinxes={jinxes}
-                  fabledOrLoric={fabledAndLoric}
-                  bootleggerRules={script.metadata?.bootlegger}
-                  options={options}
-                />
+                {i + 1 !== options.numberOfCharacterSheets && (
+                  <CharacterSheet
+                    title={script.metadata?.name || "Custom Script"}
+                    author={
+                      options.showAuthor ? script.metadata?.author : undefined
+                    }
+                    characters={groupedCharacters}
+                    jinxes={jinxes}
+                    fabledOrLoric={fabledAndLoric}
+                    bootleggerRules={script.metadata?.bootlegger}
+                    options={options}
+                  />
+                )}
+                {options.overleaf !== "none" &&
+                  i + 1 === options.numberOfCharacterSheets &&
+                  options.showNightSheet && (
+                    <NightSheet
+                      title={script.metadata?.name || "Custom Script"}
+                      firstNightOrder={nightOrders.first}
+                      otherNightOrder={undefined}
+                      options={options}
+                    />
+                  )}
               </div>
               <div style={{ breakAfter: "page" }}></div>
               <div className="teensy-sheet-pair">
@@ -75,11 +90,22 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                       nightOrders={nightOrders}
                       options={options}
                     />
-                    <SheetBack
-                      title={script.metadata?.name || "Custom Script"}
-                      nightOrders={nightOrders}
-                      options={options}
-                    />
+                    {i + 1 !== options.numberOfCharacterSheets && (
+                      <SheetBack
+                        title={script.metadata?.name || "Custom Script"}
+                        nightOrders={nightOrders}
+                        options={options}
+                      />
+                    )}
+                    {i + 1 === options.numberOfCharacterSheets &&
+                      options.showNightSheet && (
+                        <NightSheet
+                          title={script.metadata?.name || "Custom Script"}
+                          firstNightOrder={undefined}
+                          otherNightOrder={nightOrders.other}
+                          options={options}
+                        />
+                      )}
                   </>
                 )}
 
@@ -95,33 +121,48 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                       travellers={groupedCharacters.traveller}
                       options={options}
                     />
-                    <InfoSheet
-                      title={script.metadata?.name || "Custom Script"}
-                      firstNightOrder={nightOrders.first}
-                      otherNightOrder={nightOrders.other}
-                      bootleggerRules={script.metadata?.bootlegger}
-                      jinxes={resolvedJinxes}
-                      fabledOrLoric={fabledAndLoric}
-                      travellers={groupedCharacters.traveller}
-                      options={options}
-                    />
+                    {i + 1 !== options.numberOfCharacterSheets && (
+                      <InfoSheet
+                        title={script.metadata?.name || "Custom Script"}
+                        firstNightOrder={nightOrders.first}
+                        otherNightOrder={nightOrders.other}
+                        bootleggerRules={script.metadata?.bootlegger}
+                        jinxes={resolvedJinxes}
+                        fabledOrLoric={fabledAndLoric}
+                        travellers={groupedCharacters.traveller}
+                        options={options}
+                      />
+                    )}
+                    {i + 1 === options.numberOfCharacterSheets &&
+                      options.showNightSheet && (
+                        <NightSheet
+                          title={script.metadata?.name || "Custom Script"}
+                          firstNightOrder={undefined}
+                          otherNightOrder={nightOrders.other}
+                          options={options}
+                        />
+                      )}
                   </>
                 )}
               </div>
-              {options.showNightSheet && (
-                <>
-                  <NightSheet
-                    title={script.metadata?.name || "Custom Script"}
-                    firstNightOrder={nightOrders.first}
-                    otherNightOrder={nightOrders.other}
-                    options={options}
-                  />
-                </>
-              )}
               {i + 2 < numberOfSheets && <div style="break-after:page;"></div>}
             </div>
           ),
       )}
+      {options.showNightSheet &&
+        (!(options.numberOfCharacterSheets % 2) ||
+          options.overleaf === "none") && (
+          <div
+            className={`teensy-night-sheet ${options.overleaf === "none" ? "teensy-sheet-pair" : ""}`}
+          >
+            <NightSheet
+              title={script.metadata?.name || "Custom Script"}
+              firstNightOrder={nightOrders.first}
+              otherNightOrder={nightOrders.other}
+              options={options}
+            />
+          </div>
+        )}
     </div>
   );
 };

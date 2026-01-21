@@ -86,7 +86,7 @@ export const PrintGuides = ({ dimensions, position }: PrintGuidesProps) => {
 };
 
 function DoubleLine(
-  props: SVGAttributes<SVGLineElement> & { thickWidth: number }
+  props: SVGAttributes<SVGLineElement> & { thickWidth: number },
 ) {
   return (
     <>
