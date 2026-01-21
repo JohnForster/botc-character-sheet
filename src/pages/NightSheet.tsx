@@ -1,39 +1,42 @@
-import { NightMarker, NightOrderEntry, PageDimensions } from "../types";
+import { NightMarker, NightOrderEntry, ScriptOptions } from "../types";
 import { getImageSrc } from "../utils/nightOrder";
 import "./NightSheet.css";
 import { teamColours } from "../utils/colours";
 import { BottomTrimSheet } from "../components/BottomTrimSheet";
 
 export type NightSheetProps = {
+  title: string;
   firstNightOrder: NightOrderEntry[];
   otherNightOrder: NightOrderEntry[];
-  includeMargins: boolean;
-  title: string;
-  color: string | string[];
-  dimensions: PageDimensions;
+  options: ScriptOptions;
 };
 
-export const NightSheet = (props: NightSheetProps) => {
+export const NightSheet = ({
+  title,
+  firstNightOrder,
+  otherNightOrder,
+  options,
+}: NightSheetProps) => {
   return (
     <>
-      <BottomTrimSheet {...props}>
+      <BottomTrimSheet options={options}>
         <div className="night-sheet-heading">
           <h3 className="night-title">First Night</h3>
-          <h3 className="script-title">{props.title}</h3>
+          <h3 className="script-title">{title}</h3>
         </div>
         <div className="night-sheet-order">
-          {props.firstNightOrder.map((reminder) => (
+          {firstNightOrder.map((reminder) => (
             <NightSheetEntry entry={reminder} night="first" />
           ))}
         </div>
       </BottomTrimSheet>
-      <BottomTrimSheet {...props}>
+      <BottomTrimSheet options={options}>
         <div className="night-sheet-heading">
           <h3 className="night-title">Other Nights</h3>
-          <h3 className="script-title">{props.title}</h3>
+          <h3 className="script-title">{title}</h3>
         </div>
         <div className="night-sheet-order">
-          {props.otherNightOrder.map((reminder) => (
+          {otherNightOrder.map((reminder) => (
             <NightSheetEntry entry={reminder} night="other" />
           ))}
         </div>

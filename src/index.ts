@@ -3,6 +3,7 @@ export { CharacterSheet } from "./pages/CharacterSheet";
 export { SheetBack } from "./pages/SheetBack";
 export { NightSheet } from "./pages/NightSheet";
 export { FancyDoc } from "./FancyDoc";
+export { TeensyDoc } from "./TeensyDoc";
 export type {
   CharacterTeam,
   ResolvedCharacter,

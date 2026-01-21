@@ -6,7 +6,7 @@ import {
   createOverlayBackground,
 } from "../utils/colours";
 import "./CharacterSheet.css";
-import { GroupedCharacters, Jinx, PageDimensions } from "../types";
+import { GroupedCharacters, Jinx, ScriptOptions } from "../types";
 import { FabledOrLoric } from "../utils/fabledOrLoric";
 import { JinxesAndSpecial } from "../components/JinxesAndSpecial";
 import { CharacterSection } from "./CharacterSection";
@@ -16,42 +16,31 @@ interface CharacterSheetProps {
   title: string;
   author?: string;
   characters: GroupedCharacters;
-  color: string | string[];
   jinxes: Jinx[];
-  showSwirls?: boolean;
-  includeMargins?: boolean;
-  solidTitle?: boolean;
-  iconScale?: number;
-  appearance?: "normal" | "compact" | "super-compact" | "mega-compact";
   fabledOrLoric?: FabledOrLoric[];
-  inlineJinxIcons?: boolean;
   bootleggerRules?: string[];
-  dimensions: PageDimensions;
+  options: ScriptOptions;
 }
-
-const defaultDimensions: PageDimensions = {
-  width: 210,
-  height: 297,
-  margin: 0,
-  bleed: 0,
-};
 
 export function CharacterSheet({
   title,
   author,
   characters,
-  dimensions = defaultDimensions,
-  color = "#4a5568",
   jinxes = [],
-  showSwirls = true,
-  includeMargins = false,
-  solidTitle = false,
-  iconScale = 1.6,
-  appearance = "normal",
   fabledOrLoric = [],
-  inlineJinxIcons = false,
   bootleggerRules = [],
+  options,
 }: CharacterSheetProps) {
+  const {
+    color,
+    showSwirls,
+    includeMargins,
+    solidTitle,
+    iconScale,
+    appearance,
+    inlineJinxIcons,
+    dimensions,
+  } = options;
   const sections = [
     {
       key: "townsfolk",
@@ -96,6 +85,7 @@ export function CharacterSheet({
         style={
           {
             "--header-gradient": gradient,
+            "--sidebar-width": options.teensy ? "10mm" : "15mm",
             transform: includeMargins ? "scale(0.952)" : undefined,
           } as CSSProperties
         }

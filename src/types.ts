@@ -57,6 +57,7 @@ export interface ScriptOptions {
   numberOfCharacterSheets: number;
   inlineJinxIcons: boolean;
   dimensions: PageDimensions;
+  teensy: boolean;
 }
 
 export interface ParsedScript {

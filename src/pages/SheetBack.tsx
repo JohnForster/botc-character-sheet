@@ -1,5 +1,5 @@
 import "./SheetBack.css";
-import { NightOrders } from "../types";
+import { NightOrders, ScriptOptions } from "../types";
 import { formatWithMinorWords } from "../utils/minorWordFormatter";
 import { NightOrderPanel } from "../components/NightOrderPanel";
 import { PlayerCount } from "../components/PlayerCount";
@@ -8,30 +8,23 @@ import { PrintablePage } from "../components/PrintablePage";
 
 type SheetBackProps = {
   title: string;
-  color: string | string[];
-  includeMargins: boolean;
-  formatMinorWords?: boolean;
-  displayNightOrder?: boolean;
-  displayPlayerCounts?: boolean;
   nightOrders?: NightOrders;
-  dimensions: {
-    width: number;
-    height: number;
-    margin: number;
-    bleed: number;
-  };
+  options: ScriptOptions;
 };
 
 export const SheetBack = ({
   title,
-  color,
-  includeMargins,
-  formatMinorWords = false,
-  displayNightOrder = false,
   nightOrders = { first: [], other: [] },
-  displayPlayerCounts = true,
-  dimensions,
+  options,
 }: SheetBackProps) => {
+  const {
+    color,
+    includeMargins,
+    formatMinorWords,
+    displayNightOrder,
+    displayPlayerCounts,
+    dimensions,
+  } = options;
   const renderTitle = () => {
     const parts = title.split("&");
     return parts.map((part, partIndex) => (

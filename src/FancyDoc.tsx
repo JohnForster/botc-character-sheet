@@ -27,7 +27,7 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
         characters: [char1!, char2!] as [ScriptCharacter, ScriptCharacter],
         text: jinx,
       };
-    }
+    },
   );
   const fabledAndLoric = getFabledOrLoric(script.characters);
 
@@ -41,17 +41,10 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
               title={script.metadata?.name || "Custom Script"}
               author={options.showAuthor ? script.metadata?.author : undefined}
               characters={groupedCharacters}
-              color={options.color}
               jinxes={jinxes}
               fabledOrLoric={fabledAndLoric}
-              showSwirls={options.showSwirls}
-              includeMargins={options.includeMargins}
-              solidTitle={options.solidTitle}
-              iconScale={options.iconScale}
-              appearance={options.appearance}
-              inlineJinxIcons={options.inlineJinxIcons}
               bootleggerRules={script.metadata?.bootlegger}
-              dimensions={options.dimensions}
+              options={options}
             />
             <div style="break-after:page;"></div>
 
@@ -59,13 +52,8 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
               <>
                 <SheetBack
                   title={script.metadata?.name || "Custom Script"}
-                  color={options.color}
-                  includeMargins={options.includeMargins}
                   nightOrders={nightOrders}
-                  formatMinorWords={options.formatMinorWords}
-                  displayNightOrder={options.displayNightOrder}
-                  displayPlayerCounts={options.displayPlayerCounts}
-                  dimensions={options.dimensions}
+                  options={options}
                 />
                 <div style="break-after:page;"></div>
               </>
@@ -74,18 +62,14 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
             {options.overleaf === "infoSheet" && (
               <>
                 <InfoSheet
+                  title={script.metadata?.name || "Custom Script"}
                   firstNightOrder={nightOrders.first}
                   otherNightOrder={nightOrders.other}
-                  includeMargins={options.includeMargins}
-                  title={script.metadata?.name || "Custom Script"}
-                  color={options.color}
                   bootleggerRules={script.metadata?.bootlegger}
                   jinxes={resolvedJinxes}
                   fabledOrLoric={fabledAndLoric}
                   travellers={groupedCharacters.traveller}
-                  showBaseCharacterCounts={options.displayPlayerCounts}
-                  displayNightOrder={options.displayNightOrder}
-                  dimensions={options.dimensions}
+                  options={options}
                 />
                 <div style="break-after:page;"></div>
               </>
@@ -96,14 +80,11 @@ export function FancyDoc({ script, options, nightOrders }: FancyDocProps) {
       {options.showNightSheet && (
         <>
           <NightSheet
+            title={script.metadata?.name || "Custom Script"}
             firstNightOrder={nightOrders.first}
             otherNightOrder={nightOrders.other}
-            includeMargins={options.includeMargins}
-            title={script.metadata?.name || "Custom Script"}
-            color={options.color}
-            dimensions={options.dimensions}
+            options={options}
           />
-          <div style="break-after:page;"></div>
         </>
       )}
     </div>
