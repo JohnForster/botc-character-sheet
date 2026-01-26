@@ -85,6 +85,15 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
               <div className="teensy-sheet-pair">
                 {options.overleaf === "backingSheet" && (
                   <>
+                    {i + 1 === options.numberOfCharacterSheets &&
+                      options.showNightSheet && (
+                        <NightSheet
+                          title={script.metadata?.name || "Custom Script"}
+                          firstNightOrder={undefined}
+                          otherNightOrder={nightOrders.other}
+                          options={options}
+                        />
+                      )}
                     <SheetBack
                       title={script.metadata?.name || "Custom Script"}
                       nightOrders={nightOrders}
@@ -97,6 +106,11 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                         options={options}
                       />
                     )}
+                  </>
+                )}
+
+                {options.overleaf === "infoSheet" && (
+                  <>
                     {i + 1 === options.numberOfCharacterSheets &&
                       options.showNightSheet && (
                         <NightSheet
@@ -106,11 +120,6 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                           options={options}
                         />
                       )}
-                  </>
-                )}
-
-                {options.overleaf === "infoSheet" && (
-                  <>
                     <InfoSheet
                       title={script.metadata?.name || "Custom Script"}
                       firstNightOrder={nightOrders.first}
@@ -133,15 +142,6 @@ export const TeensyDoc = ({ script, options, nightOrders }: TeensyDocProps) => {
                         options={options}
                       />
                     )}
-                    {i + 1 === options.numberOfCharacterSheets &&
-                      options.showNightSheet && (
-                        <NightSheet
-                          title={script.metadata?.name || "Custom Script"}
-                          firstNightOrder={undefined}
-                          otherNightOrder={nightOrders.other}
-                          options={options}
-                        />
-                      )}
                   </>
                 )}
               </div>
